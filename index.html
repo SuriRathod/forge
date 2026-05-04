@@ -10,51 +10,35 @@
 <meta name="application-name" content="FORGE">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="description" content="Workout tracker for Suri and Harshita">
-<meta name="msapplication-TileColor" content="#0a0a0a">
 <title>FORGE</title>
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAADGElEQVR4nO3TSW5UUQxA0RpndSybXQUYgFAIpKnGz5dj6UxL79u3LpcD5unp6Zn9pjsam+nFI/CrZ3q5iPvqmV4iZ5ru8sMzvTB2mO70zZleEDtNd/vqTC+F3ab7/TXTi6BFzOSImRwxkyNmcsRMjpjJETM5YiZHzOQImhQxkyNmcgRNipjJETQpYiZH0KQImhQxkyNoUgRNipjJETQpgibliKC/Pl/4i+lAthmPWdCCvnnU0w+YjuZk07fZSNAHm77NRoI+2PRtNhL0waZvs5GgDzZ9m40EfbDp22wk6INN32YjQR9s+jYbCfpg07fZSNAHm77NRoI+2PRtNhL0waZvs5GgDzZ9m40EfbDp22wk6INN32YjQR9s+jYbCfpg07fZSNAHm77NRrmgp7+HWYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETUou6JNM7/Z/JGhBpwha0CmCFnSKoAWdImhBpwha0CmCFnSKoAWdImhBpwha0CmCFnSKoAWdImhBpwha0CmCFnSKoAWdImhBpwha0CmCFnRKLujp72GWoEkRNCmCJkXQpAiaFEGTImhSBE2KoEkRNCmCJkXQpAiaFEGTImhSBE2KoEkRNCmCJkXQpAiaFEGTImhSBE2KoEkRNCmCJkXQpAiaFEGTImhSBE2KoEkRNCmCJuXhQX+P7ssLt4765e8zSNCCThG0oFMELegUQQs6RdCCThG0oFMELeiUhwf9YwRNIejLz3n0vwjuQdCkCJqUy+8z/Ri4xuXlTD8IriFoUv4IWtRs9WrMgmYrQZPy16BFzTb/jFnQbPNm0KJmi3fFLGi2eHfQouZ0H4pZ1JzsUzELmlN9OmhRc5qrYhY1J7lJzKLmBDeNWdRMukvMombCXWMWNY/0kJhFzSM8NGZRc08jMYuaexiN+feZXgS7Tff76kwvhZ2mu31zphfEDtOdfnimF8aZpru8yUwvERHfbaaXi4jvOtOLpxPwNw5H5a36vaEbAAAAAElFTkSuQmCC">
-<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAADcUlEQVR4nO3TQW4bRxRFUY61uizbu1ISA0ZixVIkWeTv+vcUcMZsVr17u13sPD09PbPX9L4udaYfg2uY3uFDz/Rlc23T+7zbmb5YzjK91y8505fIDtM7/tSZvjR2md7zu8/0RbHb9L5fPdMXQ8v03n8605dB0/Tuv5/pS6DN+MkzfHh6UAjTfxLeYvzkCYA04yfP+MkzfvKMnzwBkGb85AmANOMnz/jJEwBpAiDN+MkTAGnGT54ASBMAacZPngBIEwBplwrg2/OND5h+rw0EcLDp99rgMuMXgADGIpj+AAEIQAACEIAA5kd1kun32kIAh5p+ry0EcKjp99pCAIeafq8tBHCo6ffaQgCHmn6vLQRwqOn32kIAh5p+ry0EcKjp99pCAIeafq8tBHCo6ffaQgCHmn6vLQRwqOn32kIAh5p+ry0EcKjp99pCAIeafq8tBHCo6ffaYn0A0/+LaxMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQNr6AK5o+q75hwAEkCYAAaQJQABpAhBAmgAEkCYAAaQJQABpAhBAmgAEkCYAAaQJQABpAhBAmgAEkCYAAaQJQABpAhBAmgAEkCYAAaQJQABpAhBAmgAEkLY+gOn/xbUJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpYwH8Nc4/XrhXBC9/hwsSgADSBCCANAEIIE0AAkgTgADSBCCAtLEA/j4CYNrY+AXAFeQCgGkCIE0ApN3+faY/Bh7p9vJMfxA8kgBI+08AIqDil+MXABWvBiACtntz/AJgOwGQ9r8BiICt3jV+EbDRh8YvALb5cAAiYItPjV8AbPHpAETA6X5r/CLgZF8yfhFwoi8dvwg4yV3GLwBOcbcARMDV3XX8IuDKHjJ+IXA1Dx++CLiK0fH/ONOXQNP07n8605dBy/TeXz3TF8Nu0/t+95m+KHaZ3vOnzvSlscP0jr/kTF8iZ5ne693O9MVybdP7fOiZvmyuYXqHlzrTj0Fr7H8CIsgXc7H4PLoAAAAASUVORK5CYII=">
-<link rel="icon" type="image/png" sizes="512x512" href="data:image/png;base64,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">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
-<script>
-// Inject PWA manifest dynamically — works on both Android Chrome and iOS Safari
-(function(){
-  try {
-    var manifest = '{
-  "name": "FORGE Workout Tracker",
-  "short_name": "FORGE",
-  "description": "Personal workout tracker for Suri and Harshita",
-  "start_url": ".",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
-  "categories": ["health", "fitness"],
-  "icons": [
-    {
-      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAADcUlEQVR4nO3TQW4bRxRFUY61uizbu1ISA0ZixVIkWeTv+vcUcMZsVr17u13sPD09PbPX9L4udaYfg2uY3uFDz/Rlc23T+7zbmb5YzjK91y8505fIDtM7/tSZvjR2md7zu8/0RbHb9L5fPdMXQ8v03n8605dB0/Tuv5/pS6DN+MkzfHh6UAjTfxLeYvzkCYA04yfP+MkzfvKMnzwBkGb85AmANOMnz/jJEwBpAiDN+MkTAGnGT54ASBMAacZPngBIEwBplwrg2/OND5h+rw0EcLDp99rgMuMXgADGIpj+AAEIQAACEIAA5kd1kun32kIAh5p+ry0EcKjp99pCAIeafq8tBHCo6ffaQgCHmn6vLQRwqOn32kIAh5p+ry0EcKjp99pCAIeafq8tBHCo6ffaQgCHmn6vLQRwqOn32kIAh5p+ry0EcKjp99pCAIeafq8tBHCo6ffaYn0A0/+LaxMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQNr6AK5o+q75hwAEkCYAAaQJQABpAhBAmgAEkCYAAaQJQABpAhBAmgAEkCYAAaQJQABpAhBAmgAEkCYAAaQJQABpAhBAmgAEkCYAAaQJQABpAhBAmgAEkLY+gOn/xbUJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpAiBNAKQJgDQBkCYA0gRAmgBIEwBpYwH8Nc4/XrhXBC9/hwsSgADSBCCANAEIIE0AAkgTgADSBCCAtLEA/j4CYNrY+AXAFeQCgGkCIE0ApN3+faY/Bh7p9vJMfxA8kgBI+08AIqDil+MXABWvBiACtntz/AJgOwGQ9r8BiICt3jV+EbDRh8YvALb5cAAiYItPjV8AbPHpAETA6X5r/CLgZF8yfhFwoi8dvwg4yV3GLwBOcbcARMDV3XX8IuDKHjJ+IXA1Dx++CLiK0fH/ONOXQNP07n8605dBy/TeXz3TF8Nu0/t+95m+KHaZ3vOnzvSlscP0jr/kTF8iZ5ne693O9MVybdP7fOiZvmyuYXqHlzrTj0Fr7H8CIsgXc7H4PLoAAAAASUVORK5CYII=",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "data:image/png;base64,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",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
-}';
-    var blob = new Blob([manifest], {type:'application/json'});
-    var url = URL.createObjectURL(blob);
-    var link = document.createElement('link');
-    link.rel = 'manifest';
-    link.href = url;
-    document.head.appendChild(link);
-  } catch(e) {}
-})();
-</script>
+
 <style>
+
+/* ── ANDROID + PWA OPTIMISATIONS ── */
+html { height: 100%; height: -webkit-fill-available; }
+body { min-height: 100vh; min-height: -webkit-fill-available; }
+* { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+.screen { -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
+#sheet { overscroll-behavior: contain; }
+@media (hover: none) and (pointer: coarse) {
+  .set-btn { min-height: 48px; min-width: 48px; }
+  .nav-item { padding-top: 14px; }
+  .sp-option { min-height: 60px; }
+  .pdb-header { min-height: 60px; }
+  .btn-icon { width: 44px; height: 44px; }
+}
+.form-input { font-size: 16px !important; }
+.pdb-exercises { animation: slideDown .18s ease; }
+@keyframes slideDown { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+.streak-num { text-shadow: 0 0 30px currentColor; }
+.ex-card.completed .ex-card-top { opacity: .72; }
+
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0a0a0a;--s1:#111;--s2:#181818;--s3:#202020;--s4:#2a2a2a;
@@ -68,33 +52,11 @@
   --t1:#F5F5F5;--t2:#999;--t3:#555;
   --fd:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
   --safe-bottom:env(safe-area-inset-bottom,0px);
-  --safe-top:env(safe-area-inset-top,0px);
-  --safe-left:env(safe-area-inset-left,0px);
-  --safe-right:env(safe-area-inset-right,0px);
   --nav-h:68px;
 }
 html{height:100%;background:var(--bg)}
 body{height:100%;background:var(--bg);color:var(--t1);font-family:var(--fb);overflow:hidden;display:flex;flex-direction:column;max-width:430px;margin:0 auto;position:relative}
 
-
-
-/* Android Chrome improvements */
-@media (hover: none) and (pointer: coarse) {
-  .btn { min-height: 44px; }
-  .set-btn { min-height: 48px; min-width: 48px; }
-  .nav-item { min-height: 48px; }
-  .profile-chip { min-height: 40px; }
-  .sp-option { min-height: 56px; }
-  .pdb-header { min-height: 56px; }
-}
-/* Remove 300ms tap delay everywhere */
-* { touch-action: manipulation; }
-/* Android status bar space */
-#nav { padding-bottom: max(var(--safe-bottom), 8px); }
-/* Better Android font rendering */
-body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-/* Prevent text selection during workout */
-.ex-card, .set-btn, .nav-item, .btn { -webkit-user-select: none; user-select: none; }
 
 /* Prevent scroll bleed on iOS */
 .screen{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
@@ -357,54 +319,60 @@ select.form-input option{background:var(--s2)}
 .page-title{font-family:var(--fd);font-size:42px;font-weight:700;letter-spacing:1px;line-height:1}
 .page-sub{font-size:13px;color:var(--t2);margin-top:4px}
 </style>
-</head>
-<body>
 
-
-<!-- Android install prompt -->
-<div id="install-banner" style="display:none;position:fixed;bottom:calc(var(--nav-h) + var(--safe-bottom) + 8px);left:12px;right:12px;z-index:60;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;padding:14px 16px;display:none;align-items:center;gap:12px;box-shadow:0 4px 24px rgba(0,0,0,.5)">
-  <div style="width:40px;height:40px;border-radius:10px;background:#0a0a0a;border:1px solid #333;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-    <span style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:#C8FF00">F</span>
-  </div>
-  <div style="flex:1">
-    <div style="font-size:13px;font-weight:500;color:#f5f5f5">Add FORGE to home screen</div>
-    <div style="font-size:11px;color:#666;margin-top:2px">Works offline · feels like a real app</div>
-  </div>
-  <button onclick="doInstall()" style="background:#C8FF00;color:#000;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;font-family:'Barlow Condensed',sans-serif;cursor:pointer;flex-shrink:0">ADD</button>
-  <button onclick="document.getElementById('install-banner').style.display='none'" style="background:transparent;border:none;color:#555;font-size:20px;cursor:pointer;padding:0 4px;flex-shrink:0">×</button>
-</div>
 <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js', {scope: './'})
+      .then(function(r) { console.log('FORGE: SW registered', r.scope); })
+      .catch(function(e) { console.log('FORGE: SW failed', e); });
+  });
+}
+
+// Android install prompt
 var deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', function(e) {
   e.preventDefault();
   deferredPrompt = e;
-  // Show banner after 3 seconds
-  setTimeout(function() {
-    var banner = document.getElementById('install-banner');
-    if (banner && !localStorage.getItem('forge_installed')) {
-      banner.style.display = 'flex';
-    }
-  }, 3000);
+  if (!localStorage.getItem('forge_installed')) {
+    setTimeout(function() {
+      var b = document.getElementById('install-banner');
+      if (b) b.style.display = 'flex';
+    }, 2500);
+  }
 });
 function doInstall() {
-  var banner = document.getElementById('install-banner');
-  if (banner) banner.style.display = 'none';
+  var b = document.getElementById('install-banner');
+  if (b) b.style.display = 'none';
   if (deferredPrompt) {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(function(r) {
-      if (r.outcome === 'accepted') {
-        localStorage.setItem('forge_installed', '1');
-      }
+      if (r.outcome === 'accepted') localStorage.setItem('forge_installed','1');
       deferredPrompt = null;
     });
   }
 }
 window.addEventListener('appinstalled', function() {
-  localStorage.setItem('forge_installed', '1');
-  var banner = document.getElementById('install-banner');
-  if (banner) banner.style.display = 'none';
+  localStorage.setItem('forge_installed','1');
+  var b = document.getElementById('install-banner');
+  if (b) b.style.display = 'none';
 });
 </script>
+</head>
+<body>
+
+<!-- Android PWA Install Banner -->
+<div id="install-banner" style="display:none;position:fixed;bottom:calc(var(--nav-h) + var(--safe-bottom) + 10px);left:12px;right:12px;z-index:60;background:#1a1a1a;border:1px solid #2c2c2c;border-radius:16px;padding:14px 16px;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.6)">
+  <div style="width:44px;height:44px;border-radius:12px;background:#0a0a0a;border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;color:#C8FF00;line-height:1">F</span>
+  </div>
+  <div style="flex:1;min-width:0">
+    <div style="font-size:14px;font-weight:600;color:#f5f5f5;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px">Install FORGE</div>
+    <div style="font-size:11px;color:#666;margin-top:1px">Works offline · opens like a real app</div>
+  </div>
+  <button onclick="doInstall()" style="background:#C8FF00;color:#000;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;font-family:'Barlow Condensed',sans-serif;cursor:pointer;flex-shrink:0;letter-spacing:.5px">INSTALL</button>
+  <button onclick="this.parentElement.style.display='none';localStorage.setItem('forge_banner_dismissed','1')" style="background:transparent;border:none;color:#444;font-size:22px;cursor:pointer;padding:0;flex-shrink:0;line-height:1">×</button>
+</div>
 <div id="app">
   <div id="s-home" class="screen active"></div>
   <div id="s-session" class="screen"></div>
@@ -1325,45 +1293,6 @@ function showToast(msg,cls=''){
 // BOOT
 // ═══════════════════════════════════════════════════════════
 nav(S.screen||'home',document.querySelector(`[data-screen="${S.screen||'home'}"]`));
-</script>
-
-<script>
-// Register service worker for offline PWA support
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    var swCode = `
-      const CACHE = 'forge-v3';
-      const ASSETS = [self.location.href];
-      self.addEventListener('install', e => {
-        e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
-        self.skipWaiting();
-      });
-      self.addEventListener('activate', e => {
-        e.waitUntil(caches.keys().then(keys =>
-          Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-        ));
-        self.clients.claim();
-      });
-      self.addEventListener('fetch', e => {
-        e.respondWith(
-          caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
-            if (resp && resp.status === 200 && resp.type === 'basic') {
-              caches.open(CACHE).then(c => c.put(e.request, resp.clone()));
-            }
-            return resp;
-          }).catch(() => caches.match(e.request)))
-        );
-      });
-    `;
-    try {
-      var blob = new Blob([swCode], {type: 'application/javascript'});
-      var swUrl = URL.createObjectURL(blob);
-      navigator.serviceWorker.register(swUrl, {scope: './'})
-        .then(function(reg) { console.log('SW registered'); })
-        .catch(function(e) { console.log('SW failed', e); });
-    } catch(e) {}
-  });
-}
 </script>
 </body>
 </html>
