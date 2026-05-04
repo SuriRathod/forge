@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0a0a0a">
-<title>FORGE</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="FORGE">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><text y='62' x='50' text-anchor='middle' font-size='52' font-family='Arial Black,sans-serif' font-weight='900' fill='%23C8FF00'>F</text><rect x='18' y='70' width='64' height='5' rx='2.5' fill='%23C8FF00' opacity='.4'/></svg>">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><text y='62' x='50' text-anchor='middle' font-size='52' font-family='Arial Black,sans-serif' font-weight='900' fill='%23C8FF00'>F</text><rect x='18' y='70' width='64' height='5' rx='2.5' fill='%23C8FF00' opacity='.4'/></svg>">
-
+<meta name="theme-color" content="#0a0a0a">
+<title>FORGE</title>
+<link rel="manifest" href="data:application/json,{%22name%22:%22FORGE%22,%22short_name%22:%22FORGE%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%230a0a0a%22,%22theme_color%22:%22%230a0a0a%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><text y='62' x='50' text-anchor='middle' font-size='52' font-family='Arial Black' font-weight='900' fill='%23C8FF00'>F</text></svg>%22,%22sizes%22:%22any%22,%22type%22:%22image/svg+xml%22}]}">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><text y='62' x='50' text-anchor='middle' font-size='52' font-family='Arial Black' font-weight='900' fill='%23C8FF00'>F</text><rect x='18' y='70' width='64' height='5' rx='2.5' fill='%23C8FF00' opacity='.5'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><text y='62' x='50' text-anchor='middle' font-size='52' font-family='Arial Black' font-weight='900' fill='%23C8FF00'>F</text><rect x='18' y='70' width='64' height='5' rx='2.5' fill='%23C8FF00' opacity='.5'/></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -20,114 +20,95 @@
   --accent:#C8FF00;--a-dim:rgba(200,255,0,.1);--a-mid:rgba(200,255,0,.25);
   --orange:#FF6B2B;--o-dim:rgba(255,107,43,.1);
   --green:#39D353;--g-dim:rgba(57,211,83,.1);
-  --blue:#4DA6FF;--b-dim:rgba(77,166,255,.1);
+  --blue:#4DA6FF;--bd:rgba(77,166,255,.1);
+  --pink:#FF6EB4;--pd:rgba(255,110,180,.1);
   --red:#FF4757;
-  --t1:#F5F5F5;--t2:#999;--t3:#555;--t4:#333;
+  --t1:#F5F5F5;--t2:#999;--t3:#555;
   --fd:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
   --safe-bottom:env(safe-area-inset-bottom,0px);
   --nav-h:68px;
 }
 html{height:100%;background:var(--bg)}
-body{
-  height:100%;background:var(--bg);color:var(--t1);
-  font-family:var(--fb);overflow:hidden;
-  display:flex;flex-direction:column;max-width:430px;margin:0 auto;
-  position:relative;
-}
+body{height:100%;background:var(--bg);color:var(--t1);font-family:var(--fb);overflow:hidden;display:flex;flex-direction:column;max-width:430px;margin:0 auto;position:relative}
+
+
+/* Prevent scroll bleed on iOS */
+.screen{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#sheet{overscroll-behavior:contain}
+/* Ensure weight editor doesn't get cut off */
+.ex-card{overflow:visible}
+.weight-editor{border-radius:0 0 16px 16px}
+/* Better touch targets */
+.set-btn{touch-action:manipulation}
+.we-adj{touch-action:manipulation}
+.btn{touch-action:manipulation}
+/* Active states for touch */
+.ex-card:active{opacity:.95}
+.profile-chip:active{transform:scale(.96)}
+.rec-card:active{transform:scale(.97)}
+/* Smooth number transition on weight display */
+.ex-weight-display{transition:color .2s}
+/* Session completed exercise subtle check */
+.ex-card.completed .ex-card-top{opacity:.75}
+/* Better plan day expand animation */
+.pdb-exercises{animation:slideDown .2s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+/* Log entry expand */
+.le-ex-list{animation:slideDown .15s ease}
+/* PR card hover state */
+.rec-card{transition:transform .15s,border-color .15s}
+/* Streak glow */
+.streak-num{text-shadow:0 0 30px currentColor}
+/* Improve form inputs on iOS - prevent zoom */
+.form-input{font-size:16px!important}
 
 /* SCREENS */
 #app{flex:1;overflow:hidden;position:relative}
-.screen{
-  position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
-  padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 16px);
-  display:none;
-}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 20px);display:none}
 .screen.active{display:block}
 
-/* NAV BAR */
-#nav{
-  height:calc(var(--nav-h) + var(--safe-bottom));
-  padding-bottom:var(--safe-bottom);
-  background:var(--s1);border-top:1px solid var(--b1);
-  display:flex;align-items:flex-start;flex-shrink:0;
-  position:relative;z-index:50;
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  gap:4px;padding:12px 4px 0;cursor:pointer;
-  color:var(--t3);transition:color .15s;border:none;background:none;font-family:var(--fb);
-}
+/* NAV */
+#nav{height:calc(var(--nav-h) + var(--safe-bottom));padding-bottom:var(--safe-bottom);background:var(--s1);border-top:1px solid var(--b1);display:flex;align-items:flex-start;flex-shrink:0;position:relative;z-index:50}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 4px 0;cursor:pointer;color:var(--t3);transition:color .15s;border:none;background:none;font-family:var(--fb)}
 .nav-item.active{color:var(--accent)}
 .nav-icon{font-size:22px;line-height:1;display:block}
 .nav-label{font-size:10px;letter-spacing:.5px;font-weight:500;text-transform:uppercase}
 
 /* TOAST */
-#toast{
-  position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);
-  background:var(--s2);border:1px solid var(--b2);border-radius:24px;
-  padding:10px 20px;font-size:13px;color:var(--t1);z-index:200;
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;
-  font-family:var(--fb);
-}
+#toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--s2);border:1px solid var(--b2);border-radius:24px;padding:10px 20px;font-size:13px;color:var(--t1);z-index:200;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;font-family:var(--fb)}
 #toast.show{transform:translateX(-50%) translateY(0)}
 #toast.t-good{border-color:var(--green);color:var(--green)}
 #toast.t-warn{border-color:var(--orange);color:var(--orange)}
 
-/* SHEET MODAL */
-#sheet-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;
-  opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(4px);
-}
+/* SHEET */
+#sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(4px)}
 #sheet-overlay.open{opacity:1;pointer-events:all}
-#sheet{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
-  width:100%;max-width:430px;background:var(--s2);
-  border-radius:24px 24px 0 0;border-top:1px solid var(--b2);
-  z-index:101;transition:transform .35s cubic-bezier(.32,0,.67,0);
-  padding-bottom:calc(var(--safe-bottom) + 16px);
-  max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
-}
+#sheet{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:430px;background:var(--s2);border-radius:24px 24px 0 0;border-top:1px solid var(--b2);z-index:101;transition:transform .35s cubic-bezier(.32,0,.67,0);padding-bottom:calc(var(--safe-bottom) + 16px);max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 #sheet.open{transform:translateX(-50%) translateY(0);transition-timing-function:cubic-bezier(.33,1,.68,1)}
 .sheet-handle{width:36px;height:4px;background:var(--b3);border-radius:2px;margin:12px auto 20px}
 .sheet-title{font-family:var(--fd);font-size:26px;font-weight:700;letter-spacing:.5px;padding:0 20px;margin-bottom:20px}
 
-/* COMPONENTS */
-.page-top{padding:20px 20px 0}
-.page-title{font-family:var(--fd);font-size:42px;font-weight:700;letter-spacing:1px;line-height:1}
-.page-sub{font-size:13px;color:var(--t2);margin-top:4px}
-
-.card{background:var(--s1);border:1px solid var(--b1);border-radius:16px;padding:16px}
-.card+.card{margin-top:10px}
-
-.btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  border:none;border-radius:12px;cursor:pointer;
-  font-family:var(--fd);font-weight:600;letter-spacing:.5px;
-  transition:all .15s;-webkit-user-select:none;user-select:none;
-}
+/* BUTTONS */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;cursor:pointer;font-family:var(--fd);font-weight:600;letter-spacing:.5px;transition:all .15s;-webkit-user-select:none;user-select:none}
 .btn:active{transform:scale(.96)}
 .btn-primary{background:var(--accent);color:#000;font-size:17px;padding:15px;width:100%}
 .btn-secondary{background:var(--s3);color:var(--t1);font-size:15px;padding:13px;width:100%;border:1px solid var(--b2)}
 .btn-ghost{background:transparent;color:var(--t2);font-size:14px;padding:10px 16px;border:1px solid var(--b2)}
 .btn-sm{padding:8px 14px;font-size:13px;border-radius:8px}
 .btn-icon{width:40px;height:40px;border-radius:10px;background:var(--s3);color:var(--t2);font-size:18px;flex-shrink:0}
+.btn-danger-text{background:transparent;color:var(--red);font-size:15px;padding:13px;width:100%;border:1px solid rgba(255,71,87,.3)}
 
 /* FORM */
 .form-group{margin-bottom:14px;padding:0 20px}
 .form-label{font-size:11px;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
-.form-input{
-  width:100%;background:var(--s3);border:1px solid var(--b2);border-radius:12px;
-  padding:14px 16px;color:var(--t1);font-size:16px;font-family:var(--fb);
-  outline:none;-webkit-appearance:none;appearance:none;
-}
+.form-input{width:100%;background:var(--s3);border:1px solid var(--b2);border-radius:12px;padding:14px 16px;color:var(--t1);font-size:16px;font-family:var(--fb);outline:none;-webkit-appearance:none;appearance:none}
 .form-input:focus{border-color:var(--accent)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px;margin-bottom:14px}
-.form-row .form-group{padding:0;margin:0}
 .form-row-3{grid-template-columns:1fr 1fr 1fr}
+.form-row .form-group{padding:0;margin:0}
 select.form-input option{background:var(--s2)}
 
-/* PILL TAGS */
+/* TAGS */
 .tag{display:inline-block;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;font-family:var(--fd)}
 .tag-push{background:rgba(77,166,255,.15);color:var(--blue)}
 .tag-pull{background:rgba(57,211,83,.15);color:var(--green)}
@@ -136,35 +117,29 @@ select.form-input option{background:var(--s2)}
 .tag-hotel{background:rgba(255,71,87,.12);color:var(--red)}
 .tag-rest{background:var(--s3);color:var(--t3)}
 
-/* ─── SCREEN: HOME ─── */
-.home-hero{
-  background:linear-gradient(135deg,var(--s2) 0%,var(--s1) 100%);
-  margin:16px;border-radius:20px;padding:20px;
-  border:1px solid var(--b1);position:relative;overflow:hidden;
-}
-.home-hero::before{
-  content:'';position:absolute;top:-40px;right:-40px;
-  width:180px;height:180px;border-radius:50%;
-  background:radial-gradient(circle,var(--a-dim) 0%,transparent 70%);
-}
+/* PROFILE AVATAR */
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:15px;font-weight:700;flex-shrink:0}
+.av-suri{background:linear-gradient(135deg,#C8FF00,#7db800);color:#000}
+.av-harshita{background:linear-gradient(135deg,#FF6EB4,#c0397e);color:#fff}
+
+/* HOME */
+.home-hero{background:linear-gradient(135deg,var(--s2) 0%,var(--s1) 100%);margin:16px;border-radius:20px;padding:20px;border:1px solid var(--b1);position:relative;overflow:hidden}
+.home-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--a-dim) 0%,transparent 70%)}
+.home-hero.her::before{background:radial-gradient(circle,var(--pd) 0%,transparent 70%)}
 .hero-greeting{font-size:13px;color:var(--t2);margin-bottom:4px}
 .hero-name{font-family:var(--fd);font-size:36px;font-weight:700;letter-spacing:.5px;line-height:1}
 .hero-streak{display:flex;align-items:baseline;gap:6px;margin-top:12px}
 .streak-num{font-family:var(--fd);font-size:52px;font-weight:700;color:var(--accent);line-height:1}
+.streak-num.her{color:var(--pink)}
 .streak-label{font-size:13px;color:var(--t2)}
+
 .profile-row{display:flex;gap:8px;margin:0 16px 16px;overflow-x:auto;padding-bottom:2px}
-.profile-chip{
-  padding:8px 16px;border-radius:20px;border:1px solid var(--b2);
-  background:transparent;color:var(--t3);cursor:pointer;font-size:13px;
-  font-family:var(--fb);font-weight:500;white-space:nowrap;flex-shrink:0;
-}
-.profile-chip.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.profile-chip{padding:8px 16px;border-radius:20px;border:1px solid var(--b2);background:transparent;color:var(--t3);cursor:pointer;font-size:13px;font-family:var(--fb);font-weight:500;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:7px}
+.profile-chip.active-suri{background:var(--accent);color:#000;border-color:var(--accent)}
+.profile-chip.active-harshita{background:var(--pink);color:#fff;border-color:var(--pink)}
 .add-partner-btn{padding:8px 14px;border-radius:20px;border:1px dashed var(--b3);background:transparent;color:var(--t3);cursor:pointer;font-size:13px;font-family:var(--fb);white-space:nowrap;flex-shrink:0}
 
-.next-session-card{
-  margin:0 16px 12px;background:var(--s1);border:1px solid var(--b1);
-  border-radius:20px;overflow:hidden;
-}
+.next-session-card{margin:0 16px 12px;background:var(--s1);border:1px solid var(--b1);border-radius:20px;overflow:hidden}
 .nsc-header{padding:16px 16px 12px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between}
 .nsc-label{font-size:11px;color:var(--t3);letter-spacing:2px;text-transform:uppercase}
 .nsc-title{font-family:var(--fd);font-size:28px;font-weight:700;letter-spacing:.5px;margin-top:2px}
@@ -173,15 +148,15 @@ select.form-input option{background:var(--s2)}
 .nsc-ex:last-child{border-bottom:none}
 .nsc-ex-name{font-size:13px;color:var(--t1)}
 .nsc-ex-meta{font-size:12px;color:var(--t3);font-family:var(--fd);font-weight:600}
-.nsc-start-btn{margin:0 16px;padding:14px;background:var(--accent);border:none;border-radius:14px;width:calc(100% - 32px);font-family:var(--fd);font-size:18px;font-weight:700;color:#000;cursor:pointer;margin-bottom:16px;letter-spacing:.5px}
+.nsc-start-btn{margin:0 16px;padding:14px;border:none;border-radius:14px;width:calc(100% - 32px);font-family:var(--fd);font-size:18px;font-weight:700;cursor:pointer;margin-bottom:16px;letter-spacing:.5px}
+.nsc-start-btn.suri{background:var(--accent);color:#000}
+.nsc-start-btn.her{background:var(--pink);color:#fff}
 .nsc-start-btn:active{transform:scale(.97)}
 
 .week-strip{margin:0 16px 12px;display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.wday{
-  background:var(--s1);border:1px solid var(--b1);border-radius:10px;
-  padding:8px 4px;text-align:center;cursor:pointer;
-}
+.wday{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:8px 4px;text-align:center;cursor:pointer}
 .wday.today{border-color:rgba(200,255,0,.4);background:var(--a-dim)}
+.wday.today.her{border-color:rgba(255,110,180,.4);background:var(--pd)}
 .wday.done{border-color:rgba(57,211,83,.3);background:var(--g-dim)}
 .wday.rest-day{opacity:.4}
 .wday-name{font-size:8px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
@@ -189,126 +164,86 @@ select.form-input option{background:var(--s2)}
 .wday-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--b2);margin:5px auto 0;display:flex;align-items:center;justify-content:center;font-size:8px}
 .wday.done .wday-dot{background:var(--green);border-color:var(--green);color:#000}
 .wday.today .wday-dot{border-color:var(--accent)}
+.wday.today.her .wday-dot{border-color:var(--pink)}
 
 .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 16px 12px}
 .stat-box{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:14px}
 .stat-num{font-family:var(--fd);font-size:34px;font-weight:700;line-height:1;color:var(--t1)}
 .stat-num.a{color:var(--accent)}
 .stat-num.g{color:var(--green)}
+.stat-num.p{color:var(--pink)}
 .stat-lbl{font-size:11px;color:var(--t3);margin-top:3px;letter-spacing:.5px}
 
-/* ─── SCREEN: SESSION ─── */
-.session-header{
-  background:var(--s1);border-bottom:1px solid var(--b1);
-  padding:16px;position:sticky;top:0;z-index:10;
-}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px}
+.section-hdr-title{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--t3);letter-spacing:2px;text-transform:uppercase}
+
+/* SESSION */
+.session-header{background:var(--s1);border-bottom:1px solid var(--b1);padding:16px;position:sticky;top:0;z-index:10}
 .sh-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .sh-title{font-family:var(--fd);font-size:30px;font-weight:700;letter-spacing:.5px}
 .prog-bar{height:4px;background:var(--b1);border-radius:2px;overflow:hidden;margin-top:2px}
-.prog-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
+.prog-fill{height:100%;border-radius:2px;transition:width .4s ease}
+.prog-fill.suri{background:var(--accent)}
+.prog-fill.her{background:var(--pink)}
 
-.ex-card{
-  margin:8px 12px;background:var(--s2);border:1px solid var(--b1);
-  border-radius:16px;overflow:hidden;transition:border-color .2s;
-}
+.ex-card{margin:8px 12px;background:var(--s2);border:1px solid var(--b1);border-radius:16px;overflow:hidden;transition:border-color .2s}
 .ex-card.completed{border-color:rgba(57,211,83,.35);background:rgba(57,211,83,.03)}
 .ex-card-top{display:flex;align-items:center;gap:12px;padding:14px 14px 12px}
-.ex-num{
-  width:32px;height:32px;border-radius:8px;background:var(--s3);
-  font-family:var(--fd);font-size:16px;font-weight:700;color:var(--t3);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
+.ex-num{width:32px;height:32px;border-radius:8px;background:var(--s3);font-family:var(--fd);font-size:16px;font-weight:700;color:var(--t3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ex-card.completed .ex-num{background:var(--g-dim);color:var(--green)}
 .ex-info{flex:1;min-width:0}
 .ex-name{font-size:15px;font-weight:500;color:var(--t1);line-height:1.2}
 .ex-weight-row{display:flex;align-items:center;gap:8px;margin-top:5px}
-.ex-weight-display{
-  font-family:var(--fd);font-size:22px;font-weight:700;color:var(--accent);
-  line-height:1;cursor:pointer;
-}
+.ex-weight-display{font-family:var(--fd);font-size:22px;font-weight:700;line-height:1;cursor:pointer}
+.ex-weight-display.suri{color:var(--accent)}
+.ex-weight-display.her{color:var(--pink)}
 .ex-weight-unit{font-size:12px;color:var(--t3);margin-top:2px}
 .ex-reps-info{font-size:12px;color:var(--t2)}
 .ex-note-text{font-size:11px;color:var(--t3);font-style:italic;margin-top:3px;line-height:1.4}
 .ex-sets-row{display:flex;gap:6px;padding:0 14px 14px;flex-wrap:wrap}
-.set-btn{
-  height:44px;min-width:44px;padding:0 14px;border-radius:10px;
-  border:1.5px solid var(--b2);background:transparent;
-  color:var(--t3);font-family:var(--fd);font-size:14px;font-weight:600;
-  cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:4px;
-}
+.set-btn{height:44px;min-width:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--b2);background:transparent;color:var(--t3);font-family:var(--fd);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
 .set-btn:active{transform:scale(.92)}
 .set-btn.done{background:var(--green);border-color:var(--green);color:#000}
-.set-btn.partial{border-color:var(--accent);color:var(--accent)}
 
-.add-ex-btn{
-  margin:8px 12px;padding:14px;background:transparent;
-  border:1px dashed var(--b2);border-radius:16px;
-  color:var(--t3);font-size:14px;font-family:var(--fb);
-  cursor:pointer;width:calc(100% - 24px);
-}
-.session-finish-wrap{margin:16px 12px 0}
-
-/* WEIGHT EDITOR INLINE */
-.weight-editor{
-  padding:12px 14px;background:var(--s3);border-top:1px solid var(--b1);
-  display:none;
-}
+.weight-editor{padding:12px 14px;background:var(--s3);border-top:1px solid var(--b1);display:none}
 .weight-editor.open{display:block}
 .we-row{display:flex;align-items:center;gap:8px}
-.we-input{
-  flex:1;background:var(--s2);border:1px solid var(--b2);border-radius:10px;
-  padding:12px;color:var(--t1);font-size:20px;font-family:var(--fd);font-weight:700;
-  text-align:center;outline:none;-webkit-appearance:none;
-}
+.we-input{flex:1;background:var(--s2);border:1px solid var(--b2);border-radius:10px;padding:12px;color:var(--t1);font-size:20px;font-family:var(--fd);font-weight:700;text-align:center;outline:none;-webkit-appearance:none}
 .we-input:focus{border-color:var(--accent)}
 .we-adj{width:48px;height:48px;border-radius:10px;background:var(--b2);border:none;color:var(--t1);font-size:22px;cursor:pointer;font-family:var(--fd)}
 .we-adj:active{transform:scale(.9)}
-.we-save{background:var(--accent);color:#000;border:none;border-radius:10px;padding:12px 20px;font-family:var(--fd);font-size:15px;font-weight:700;cursor:pointer}
+.we-save{border:none;border-radius:10px;padding:12px 20px;font-family:var(--fd);font-size:15px;font-weight:700;cursor:pointer}
+.we-save.suri{background:var(--accent);color:#000}
+.we-save.her{background:var(--pink);color:#fff}
 
-/* ─── SCREEN: PLAN ─── */
-.plan-mode-toggle{
-  display:flex;margin:16px 16px 12px;background:var(--s1);
-  border:1px solid var(--b1);border-radius:12px;overflow:hidden;
-}
-.pmt-btn{
-  flex:1;padding:11px 8px;text-align:center;cursor:pointer;
-  font-size:13px;font-weight:500;color:var(--t3);border:none;
-  background:transparent;font-family:var(--fb);
-}
+.add-ex-btn{margin:8px 12px;padding:14px;background:transparent;border:1px dashed var(--b2);border-radius:16px;color:var(--t3);font-size:14px;font-family:var(--fb);cursor:pointer;width:calc(100% - 24px)}
+.session-finish-wrap{margin:16px 12px 0}
+
+/* PLAN */
+.plan-mode-toggle{display:flex;margin:16px 16px 12px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;overflow:hidden}
+.pmt-btn{flex:1;padding:11px 8px;text-align:center;cursor:pointer;font-size:13px;font-weight:500;color:var(--t3);border:none;background:transparent;font-family:var(--fb)}
 .pmt-btn.active{background:var(--s3);color:var(--t1)}
 
 .plan-day-block{margin:0 12px 8px}
-.pdb-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 16px;background:var(--s2);border:1px solid var(--b1);
-  border-radius:14px 14px 0 0;cursor:pointer;
-}
+.pdb-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--s2);border:1px solid var(--b1);border-radius:14px 14px 0 0;cursor:pointer}
 .pdb-header.collapsed{border-radius:14px}
 .pdb-day{font-size:11px;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase}
 .pdb-label{font-family:var(--fd);font-size:20px;font-weight:700;letter-spacing:.5px;margin-top:1px}
 .pdb-toggle{font-size:18px;color:var(--t3);transition:transform .2s}
 .pdb-toggle.open{transform:rotate(180deg)}
 .pdb-exercises{border:1px solid var(--b1);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}
-.pdb-ex-row{
-  display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--b1);
-  background:var(--s1);
-}
+.pdb-ex-row{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--b1);background:var(--s1)}
 .pdb-ex-row:last-child{border-bottom:none}
-.pdb-ex-name{flex:1;font-size:14px;color:var(--t1)}
-.pdb-ex-weight{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--accent);cursor:pointer;padding:4px 8px}
+.pdb-ex-info{flex:1}
+.pdb-ex-name{font-size:14px;color:var(--t1)}
 .pdb-ex-meta{font-size:11px;color:var(--t3);margin-top:2px}
-.pdb-add-btn{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  padding:12px;border-top:1px dashed var(--b2);background:transparent;
-  border:1px solid var(--b1);border-top:1px dashed var(--b2);
-  color:var(--t3);font-size:13px;font-family:var(--fb);cursor:pointer;width:100%;
-}
+.pdb-ex-weight{font-family:var(--fd);font-size:20px;font-weight:700;cursor:pointer;padding:4px 8px}
+.pdb-ex-weight.suri{color:var(--accent)}
+.pdb-ex-weight.her{color:var(--pink)}
+.pdb-add-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border-top:1px dashed var(--b2);background:transparent;border:none;border-top:1px dashed var(--b2);color:var(--t3);font-size:13px;font-family:var(--fb);cursor:pointer;width:100%}
 
-/* ─── SCREEN: LOG ─── */
-.log-entry{
-  margin:0 12px 8px;background:var(--s1);border:1px solid var(--b1);
-  border-radius:14px;padding:14px 16px;
-}
+/* LOG */
+.log-entry{margin:0 12px 8px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:14px 16px}
 .le-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
 .le-date{font-size:11px;color:var(--t3);letter-spacing:.5px}
 .le-title{font-family:var(--fd);font-size:20px;font-weight:700;letter-spacing:.5px;margin-top:1px}
@@ -322,30 +257,20 @@ select.form-input option{background:var(--s2)}
 .le-ex-name{font-size:12px;color:var(--t2)}
 .le-ex-val{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--t1)}
 
-/* ─── SCREEN: RECORDS ─── */
+/* RECORDS */
 .records-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px}
-.rec-card{
-  background:var(--s1);border:1px solid var(--b1);border-radius:14px;
-  padding:14px;cursor:pointer;
-}
+.rec-card{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:14px;cursor:pointer}
 .rec-card:active{transform:scale(.97)}
 .rec-exercise{font-size:11px;color:var(--t3);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rec-val{font-family:var(--fd);font-size:32px;font-weight:700;color:var(--accent);line-height:1}
+.rec-val{font-family:var(--fd);font-size:32px;font-weight:700;line-height:1}
+.rec-val.suri{color:var(--accent)}
+.rec-val.her{color:var(--pink)}
 .rec-unit{font-size:11px;color:var(--t3)}
 .rec-date{font-size:10px;color:var(--t3);margin-top:4px}
+.add-rec-btn{margin:0 12px 12px;padding:14px;background:var(--s1);border:1px dashed var(--b2);border-radius:14px;color:var(--t2);font-size:14px;font-family:var(--fb);cursor:pointer;width:calc(100% - 24px)}
 
-.add-rec-btn{
-  margin:0 12px 12px;padding:14px;background:var(--s1);
-  border:1px dashed var(--b2);border-radius:14px;
-  color:var(--t2);font-size:14px;font-family:var(--fb);cursor:pointer;width:calc(100% - 24px);
-}
-
-/* SELECT SESSION SHEET */
-.session-picker{padding:0 0 8px}
-.sp-option{
-  display:flex;align-items:center;gap:14px;padding:16px 20px;
-  border-bottom:1px solid var(--b1);cursor:pointer;
-}
+/* SESSION PICKER */
+.sp-option{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--b1);cursor:pointer}
 .sp-option:active{background:var(--s3)}
 .sp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .sp-info{flex:1}
@@ -353,27 +278,20 @@ select.form-input option{background:var(--s2)}
 .sp-detail{font-size:12px;color:var(--t3);margin-top:2px}
 .sp-arrow{font-size:18px;color:var(--t3)}
 
-/* WEIGHT HISTORY in sheet */
+/* WEIGHT HISTORY */
 .wh-entry{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--b1)}
 .wh-date{font-size:12px;color:var(--t3)}
 .wh-val{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--accent)}
 
-/* Empty state */
+/* EMPTY */
 .empty-state{text-align:center;padding:60px 30px;color:var(--t3)}
 .empty-icon{font-size:48px;margin-bottom:16px;display:block;opacity:.3}
 .empty-text{font-size:14px;line-height:1.7;color:var(--t3)}
 
-/* Separator */
-.sep{height:1px;background:var(--b1);margin:0 16px}
-.section-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px}
-.section-hdr-title{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--t3);letter-spacing:2px;text-transform:uppercase}
-
-/* HYPERCARE BANNER */
-.mode-banner{
-  margin:0 12px 12px;padding:12px 16px;border-radius:14px;
-  background:rgba(255,107,43,.08);border:1px solid rgba(255,107,43,.2);
-  font-size:13px;color:var(--orange);line-height:1.5;
-}
+/* PAGE TOP */
+.page-top{padding:20px 20px 0}
+.page-title{font-family:var(--fd);font-size:42px;font-weight:700;letter-spacing:1px;line-height:1}
+.page-sub{font-size:13px;color:var(--t2);margin-top:4px}
 </style>
 </head>
 <body>
@@ -387,21 +305,11 @@ select.form-input option{background:var(--s2)}
 </div>
 
 <nav id="nav">
-  <button class="nav-item active" data-screen="home" onclick="nav('home',this)">
-    <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
-  </button>
-  <button class="nav-item" data-screen="session" onclick="nav('session',this)">
-    <span class="nav-icon">▶</span><span class="nav-label">Session</span>
-  </button>
-  <button class="nav-item" data-screen="plan" onclick="nav('plan',this)">
-    <span class="nav-icon">≡</span><span class="nav-label">Plan</span>
-  </button>
-  <button class="nav-item" data-screen="log" onclick="nav('log',this)">
-    <span class="nav-icon">↗</span><span class="nav-label">Log</span>
-  </button>
-  <button class="nav-item" data-screen="records" onclick="nav('records',this)">
-    <span class="nav-icon">★</span><span class="nav-label">PRs</span>
-  </button>
+  <button class="nav-item active" data-screen="home" onclick="nav('home',this)"><span class="nav-icon">⌂</span><span class="nav-label">Home</span></button>
+  <button class="nav-item" data-screen="session" onclick="nav('session',this)"><span class="nav-icon">▶</span><span class="nav-label">Session</span></button>
+  <button class="nav-item" data-screen="plan" onclick="nav('plan',this)"><span class="nav-icon">≡</span><span class="nav-label">Plan</span></button>
+  <button class="nav-item" data-screen="log" onclick="nav('log',this)"><span class="nav-icon">↗</span><span class="nav-label">Log</span></button>
+  <button class="nav-item" data-screen="records" onclick="nav('records',this)"><span class="nav-icon">★</span><span class="nav-label">PRs</span></button>
 </nav>
 
 <div id="sheet-overlay" onclick="closeSheet()"></div>
@@ -409,9 +317,10 @@ select.form-input option{background:var(--s2)}
 <div id="toast"></div>
 
 <script>
-// ═══════════════ DATA ═══════════════
-const PLANS = {
-home:[
+// ═══════════════════════════════════════════════════════════
+// SURI'S PLAN DATA
+// ═══════════════════════════════════════════════════════════
+const SURI_HOME = [
   {day:'Monday',type:'push',label:'Push A',sub:'Chest dominant',exercises:[
     {id:1,name:'Incline DB Press',sets:4,reps:'8-10',weight:45,unit:'lbs',note:'Add weight when all 4 sets hit 10'},
     {id:2,name:'Flat DB Press',sets:3,reps:'10-12',weight:45,unit:'lbs',note:''},
@@ -426,9 +335,9 @@ home:[
     {id:9,name:'DB Row',sets:4,reps:'8-10',weight:105,unit:'lbs',note:'Compound first — before cables'},
     {id:10,name:'Lat Pulldown',sets:3,reps:'10-12',weight:120,unit:'lbs',note:''},
     {id:11,name:'Straight Bar Pulldown',sets:3,reps:'12',weight:50,unit:'lbs',note:'Lower lat focus'},
-    {id:12,name:'Rear Delt Fly',sets:3,reps:'15',weight:75,unit:'lbs',note:'Also covers rotator cuff — no face pull needed'},
+    {id:12,name:'Rear Delt Fly',sets:3,reps:'15',weight:75,unit:'lbs',note:'Covers rotator cuff — no face pull needed'},
     {id:13,name:'Preacher Curl',sets:3,reps:'10-12',weight:40,unit:'lbs',note:''},
-    {id:14,name:'Pallof Press',sets:3,reps:'12 each',weight:20,unit:'lbs',note:'Anti-rotation core — very athletic'},
+    {id:14,name:'Pallof Press',sets:3,reps:'12 each',weight:20,unit:'lbs',note:'Anti-rotation core — athletic'},
   ]},
   {day:'Wednesday',type:'cardio',label:'Cardio + Core',sub:'Fat loss day',exercises:[
     {id:15,name:'10min Run + 20min Incline Walk',sets:1,reps:'30 min',weight:0,unit:'',note:'Incline 9-12° · fat-burning zone'},
@@ -441,7 +350,7 @@ home:[
     {id:20,name:'Smith Machine Squat',sets:4,reps:'6-8',weight:90,unit:'lbs',note:'Feet slightly forward · pause 1-2s at bottom'},
     {id:21,name:'DB Romanian Deadlift',sets:3,reps:'10',weight:90,unit:'lbs',note:'Dumbbells > Smith for RDL — natural arc'},
     {id:22,name:'Leg Press',sets:3,reps:'12',weight:230,unit:'lbs',note:''},
-    {id:23,name:'Walking Lunge',sets:3,reps:'12 each',weight:40,unit:'lbs',note:'Hits stabilisers Smith misses'},
+    {id:23,name:'Walking Lunge',sets:3,reps:'12 each',weight:40,unit:'lbs',note:''},
     {id:24,name:'Leg Extension',sets:3,reps:'15',weight:115,unit:'lbs',note:''},
     {id:25,name:'Hamstring Curl',sets:3,reps:'12',weight:125,unit:'lbs',note:''},
     {id:26,name:'Standing Calf Raise',sets:4,reps:'15',weight:90,unit:'lbs',note:''},
@@ -449,7 +358,7 @@ home:[
   ]},
   {day:'Friday',type:'push',label:'Push B',sub:'Shoulder dominant',exercises:[
     {id:28,name:'Seated DB Shoulder Press',sets:4,reps:'8-10',weight:30,unit:'lbs',note:'Lead with shoulders today'},
-    {id:29,name:'Incline DB Press',sets:3,reps:'10-12',weight:45,unit:'lbs',note:'Chest as accessory'},
+    {id:29,name:'Incline DB Press',sets:3,reps:'10-12',weight:45,unit:'lbs',note:''},
     {id:30,name:'Machine Chest Press',sets:3,reps:'12-15',weight:80,unit:'lbs',note:''},
     {id:31,name:'Cable Lateral Raise',sets:4,reps:'15',weight:13.5,unit:'lbs',note:'Extra set — shoulder width'},
     {id:32,name:'Front Raise (plate)',sets:3,reps:'12',weight:20,unit:'lbs',note:''},
@@ -469,8 +378,8 @@ home:[
     {id:42,name:'Morning Flexibility Routine',sets:1,reps:'10 min',weight:0,unit:'',note:'Hip flexor, cat-cow, pigeon pose, hamstring fold'},
     {id:43,name:'Light Walk',sets:1,reps:'20-30 min',weight:0,unit:'',note:''},
   ]},
-],
-travel:[
+];
+const SURI_TRAVEL = [
   {day:'Mon-Thu',type:'hotel',label:'Hotel Full Body',sub:'2-3× during travel',exercises:[
     {id:50,name:'DB Goblet Squat',sets:4,reps:'15',weight:0,unit:'',note:'Heaviest hotel dumbbell'},
     {id:51,name:'DB Romanian Deadlift',sets:3,reps:'12',weight:0,unit:'',note:''},
@@ -478,7 +387,7 @@ travel:[
     {id:53,name:'DB Bent-Over Row (each arm)',sets:4,reps:'12',weight:0,unit:'',note:''},
     {id:54,name:'DB Shoulder Press',sets:3,reps:'12',weight:0,unit:'',note:''},
     {id:55,name:'DB Lateral Raise',sets:3,reps:'15',weight:0,unit:'',note:''},
-    {id:56,name:'Push-Up (feet elevated)',sets:3,reps:'max',weight:0,unit:'',note:'Upper chest substitute'},
+    {id:56,name:'Push-Up (feet elevated)',sets:3,reps:'max',weight:0,unit:'',note:'Upper chest'},
     {id:57,name:'Plank + Hollow Body',sets:3,reps:'40s each',weight:0,unit:'',note:''},
   ]},
   {day:'Friday',type:'push',label:'Push (home)',sub:'Back at Planet Fitness',exercises:[
@@ -499,64 +408,150 @@ travel:[
   {day:'Sunday',type:'rest',label:'Rest',sub:'Family time',exercises:[
     {id:69,name:'Light Walk or Yoga',sets:1,reps:'20-30 min',weight:0,unit:'',note:''},
   ]},
-]};
-
-const SESSION_TYPES = [
-  {key:'pushA',label:'Push A',sub:'Chest dominant',type:'push',dayIdx:0,planKey:'home'},
-  {key:'pullA',label:'Pull A',sub:'Back + Bicep',type:'pull',dayIdx:1,planKey:'home'},
-  {key:'cardio',label:'Cardio + Core',sub:'Fat loss day',type:'cardio',dayIdx:2,planKey:'home'},
-  {key:'legs',label:'Legs',sub:'Full lower body',type:'legs',dayIdx:3,planKey:'home'},
-  {key:'pushB',label:'Push B',sub:'Shoulder dominant',type:'push',dayIdx:4,planKey:'home'},
-  {key:'pullB',label:'Pull B',sub:'Trap + Width',type:'pull',dayIdx:5,planKey:'home'},
-  {key:'hotel',label:'Hotel Full Body',sub:'Travel maintenance',type:'hotel',dayIdx:0,planKey:'travel'},
-  {key:'rest',label:'Rest Day',sub:'Active recovery',type:'rest',dayIdx:6,planKey:'home'},
 ];
 
-// ═══════════════ STATE ═══════════════
-function load(){try{const s=localStorage.getItem('forge3');return s?JSON.parse(s):null}catch{return null}}
-function save(){try{localStorage.setItem('forge3',JSON.stringify(S))}catch{}}
+// ═══════════════════════════════════════════════════════════
+// HARSHITA'S PLAN DATA
+// ═══════════════════════════════════════════════════════════
+const HARSHITA_PLAN = [
+  {day:'Monday',type:'push',label:'Push',sub:'Chest · Tricep · Shoulder',exercises:[
+    {id:101,name:'Incline DB Press',sets:3,reps:'10-12',weight:15,unit:'lbs',note:'Add weight when all 3 sets hit 12 cleanly'},
+    {id:102,name:'Flat DB Press',sets:3,reps:'10-12',weight:15,unit:'lbs',note:''},
+    {id:103,name:'Machine Chest Fly',sets:3,reps:'12-15',weight:30,unit:'lbs',note:'Constant tension throughout movement'},
+    {id:104,name:'Overhead DB Shoulder Press',sets:3,reps:'10-12',weight:12,unit:'lbs',note:''},
+    {id:105,name:'DB Lateral Raise',sets:3,reps:'15',weight:8,unit:'lbs',note:'3s slow eccentric — don\'t swing'},
+    {id:106,name:'DB Front Raise',sets:3,reps:'12',weight:10,unit:'lbs',note:'Moved from leg day — anterior delt is a push muscle'},
+    {id:107,name:'Tricep Pulldown',sets:3,reps:'12',weight:20.5,unit:'lbs',note:''},
+    {id:108,name:'Tricep Extension',sets:2,reps:'12',weight:30,unit:'lbs',note:'2 sets enough alongside pulldown'},
+  ]},
+  {day:'Tuesday',type:'cardio',label:'Cardio + Core',sub:'Fat loss day',exercises:[
+    {id:109,name:'Weighted Jumping Jacks',sets:5,reps:'20',weight:5,unit:'lbs',note:'Warmup — do before treadmill'},
+    {id:110,name:'Incline Treadmill Walk',sets:1,reps:'35-40 min',weight:0,unit:'',note:'Incline 9-12° · 120-140bpm heart rate zone'},
+    {id:111,name:'Torso Rotation Machine',sets:3,reps:'15 each',weight:65,unit:'lbs',note:''},
+    {id:112,name:'Abdominal Machine',sets:3,reps:'15',weight:65,unit:'lbs',note:''},
+    {id:113,name:'Plank Hold',sets:3,reps:'30-45s',weight:0,unit:'',note:'Build to 60s over 8 weeks'},
+    {id:114,name:'Russian Twist',sets:3,reps:'20',weight:10,unit:'lbs',note:'Obliques — waist definition'},
+  ]},
+  {day:'Wednesday',type:'legs',label:'Legs',sub:'Full lower body',exercises:[
+    {id:115,name:'DB Squat',sets:4,reps:'10-12',weight:20,unit:'lbs',note:'Increase to 25-30 lbs within 3-4 weeks — fully adapted'},
+    {id:116,name:'DB Romanian Deadlift',sets:3,reps:'10',weight:17.5,unit:'lbs',note:'Hip hinge — most effective for glute-hamstring'},
+    {id:117,name:'DB Walking Lunge',sets:3,reps:'12 each',weight:12,unit:'lbs',note:''},
+    {id:118,name:'Leg Press',sets:3,reps:'12',weight:70,unit:'lbs',note:'Start here — progressive overload beyond DB squat'},
+    {id:119,name:'Inner Thigh Adductor',sets:3,reps:'15',weight:75,unit:'lbs',note:''},
+    {id:120,name:'Standing Calf Raise',sets:4,reps:'15',weight:25,unit:'lbs',note:'10 lbs was too light — calves need load to respond'},
+  ]},
+  {day:'Thursday',type:'cardio',label:'Cardio + Core B',sub:'Fat loss day variation',exercises:[
+    {id:121,name:'Weighted Jumping Jacks',sets:5,reps:'20',weight:5,unit:'lbs',note:'Warmup first'},
+    {id:122,name:'Incline Treadmill Walk',sets:1,reps:'35-40 min',weight:0,unit:'',note:'Incline 9-12°'},
+    {id:123,name:'Glute Bridge',sets:3,reps:'15',weight:0,unit:'',note:'Replaces KB swing — same posterior chain, more controlled'},
+    {id:124,name:'Reverse Crunch',sets:3,reps:'12-15',weight:0,unit:'',note:'Lie on bench — brings knees to chest — lower abs'},
+    {id:125,name:'Side Bend (DB or plate)',sets:3,reps:'12 each',weight:25,unit:'lbs',note:'Obliques + QL — keep as is'},
+    {id:126,name:'Standing DB Knee Raise',sets:3,reps:'10-12 each',weight:20,unit:'lbs',note:'Hands overhead — ab + hip flexor + balance'},
+    {id:127,name:'Mountain Climbers',sets:3,reps:'20 sec',weight:0,unit:'',note:'Finisher — cardio + core simultaneously'},
+  ]},
+  {day:'Friday',type:'pull',label:'Pull',sub:'Back + Bicep',exercises:[
+    {id:128,name:'Assisted Pull-Up',sets:3,reps:'6-8',weight:80,unit:'lbs assist',note:'Reduce assistance 5 lbs every 2-3 weeks'},
+    {id:129,name:'Lat Pulldown',sets:3,reps:'10-12',weight:50,unit:'lbs',note:''},
+    {id:130,name:'Reverse Lat Pulldown',sets:3,reps:'10-12',weight:50,unit:'lbs',note:'Underhand grip — more bicep + lower lat'},
+    {id:131,name:'Seated Cable Row',sets:3,reps:'12',weight:50,unit:'lbs',note:'Covers DB row — no need for both'},
+    {id:132,name:'Rear Delt Fly',sets:3,reps:'15',weight:30,unit:'lbs',note:'Posture + shoulder health'},
+    {id:133,name:'Bicep Machine',sets:3,reps:'12',weight:30,unit:'lbs',note:''},
+    {id:134,name:'DB Bicep Curl',sets:2,reps:'12',weight:12,unit:'lbs',note:'2 sets — machine already covers volume'},
+    {id:135,name:'DB Shrug',sets:2,reps:'15',weight:20,unit:'lbs',note:''},
+  ]},
+  {day:'Saturday',type:'cardio',label:'Cardio + Glutes',sub:'Light cardio + hip focus',exercises:[
+    {id:136,name:'Weighted Jumping Jacks',sets:5,reps:'20',weight:5,unit:'lbs',note:'Warmup'},
+    {id:137,name:'Incline Treadmill Walk',sets:1,reps:'30-35 min',weight:0,unit:'',note:'Slightly shorter — saving energy for hip thrusts'},
+    {id:138,name:'Hip Thrust',sets:4,reps:'12',weight:0,unit:'',note:'Start bodyweight → 20-30 lbs on lap within 2 weeks · #1 glute exercise'},
+    {id:139,name:'Glute Bridge Pulse',sets:2,reps:'20 pulses',weight:0,unit:'',note:'After hip thrusts — burns out glutes completely'},
+    {id:140,name:'Torso Rotation or Side Bend',sets:2,reps:'12',weight:0,unit:'',note:'Pick one — lighter day'},
+    {id:141,name:'Mountain Climbers',sets:2,reps:'20 sec',weight:0,unit:'',note:'Finisher'},
+  ]},
+  {day:'Sunday',type:'rest',label:'Rest',sub:'Active recovery',exercises:[
+    {id:142,name:'Morning Flexibility Routine',sets:1,reps:'10 min',weight:0,unit:'',note:'Hip flexor, cat-cow, pigeon pose, hamstring fold'},
+    {id:143,name:'Light Walk',sets:1,reps:'20-30 min',weight:0,unit:'',note:'Optional'},
+  ]},
+];
 
-function freshUser(name,planType){
-  return{
-    id:'u'+Date.now(),name,planType,
-    plan:{home:JSON.parse(JSON.stringify(PLANS.home)),travel:JSON.parse(JSON.stringify(PLANS.travel))},
-    log:[],records:{},
-    activeSession:null,
-    lastSessionKey:null,
-    idCounter:200,
-  };
+// ═══════════════════════════════════════════════════════════
+// SESSION TYPES
+// ═══════════════════════════════════════════════════════════
+const SURI_SESSIONS = [
+  {key:'pushA',label:'Push A',sub:'Chest dominant',type:'push',planKey:'home',dayIdx:0},
+  {key:'pullA',label:'Pull A',sub:'Back + Bicep',type:'pull',planKey:'home',dayIdx:1},
+  {key:'cardio',label:'Cardio + Core',sub:'Fat loss day',type:'cardio',planKey:'home',dayIdx:2},
+  {key:'legs',label:'Legs',sub:'Full lower body',type:'legs',planKey:'home',dayIdx:3},
+  {key:'pushB',label:'Push B',sub:'Shoulder dominant',type:'push',planKey:'home',dayIdx:4},
+  {key:'pullB',label:'Pull B',sub:'Trap + Width',type:'pull',planKey:'home',dayIdx:5},
+  {key:'hotel',label:'Hotel Full Body',sub:'Travel maintenance',type:'hotel',planKey:'travel',dayIdx:0},
+  {key:'rest',label:'Rest Day',sub:'Active recovery',type:'rest',planKey:'home',dayIdx:6},
+];
+const HARSHITA_SESSIONS = [
+  {key:'push',label:'Push',sub:'Chest · Tricep · Shoulder',type:'push',dayIdx:0},
+  {key:'cardioA',label:'Cardio + Core',sub:'Tuesday protocol',type:'cardio',dayIdx:1},
+  {key:'legs',label:'Legs',sub:'Full lower body',type:'legs',dayIdx:2},
+  {key:'cardioB',label:'Cardio + Core B',sub:'Thursday variation',type:'cardio',dayIdx:3},
+  {key:'pull',label:'Pull',sub:'Back + Bicep',type:'pull',dayIdx:4},
+  {key:'cardioGlute',label:'Cardio + Glutes',sub:'Hip focus',type:'cardio',dayIdx:5},
+  {key:'rest',label:'Rest',sub:'Active recovery',type:'rest',dayIdx:6},
+];
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+function load(){try{const s=localStorage.getItem('forge4');return s?JSON.parse(s):null}catch{return null}}
+function save(){try{localStorage.setItem('forge4',JSON.stringify(S))}catch{}}
+function clone(o){return JSON.parse(JSON.stringify(o))}
+
+function makeSuri(){
+  return{id:'suri',name:'Suri',avatar:'S',theme:'suri',
+    planType:'home',
+    plan:{home:clone(SURI_HOME),travel:clone(SURI_TRAVEL)},
+    sessions:clone(SURI_SESSIONS),
+    log:[],records:{},activeSession:null,lastSessionKey:null,idCounter:300};
+}
+function makeHarshita(){
+  return{id:'harshita',name:'Harshita',avatar:'H',theme:'harshita',
+    planType:'home',
+    plan:{home:clone(HARSHITA_PLAN)},
+    sessions:clone(HARSHITA_SESSIONS),
+    log:[],records:{},activeSession:null,lastSessionKey:null,idCounter:400};
 }
 
 const saved=load();
-let S=saved||{
-  activeUser:'u1',
-  screen:'home',
-  users:[{...freshUser('You','home'),id:'u1'}],
-};
-// migration — ensure plan structure
+let S=saved||{activeUser:'suri',screen:'home',users:[makeSuri(),makeHarshita()]};
+
+// migrate — ensure both users exist
+if(!S.users.find(u=>u.id==='suri'))S.users.unshift(makeSuri());
+if(!S.users.find(u=>u.id==='harshita'))S.users.push(makeHarshita());
 S.users.forEach(u=>{
-  if(!u.plan||!u.plan.home){u.plan={home:JSON.parse(JSON.stringify(PLANS.home)),travel:JSON.parse(JSON.stringify(PLANS.travel))};}
   if(!u.records)u.records={};
   if(!u.log)u.log=[];
-  if(!u.idCounter)u.idCounter=200;
+  if(!u.idCounter)u.idCounter=500;
+  if(!u.sessions){u.sessions=u.id==='suri'?clone(SURI_SESSIONS):clone(HARSHITA_SESSIONS);}
+  // ensure harshita has her plan
+  if(u.id==='harshita'&&(!u.plan||!u.plan.home||u.plan.home.length<6)){
+    u.plan={home:clone(HARSHITA_PLAN)};
+  }
 });
 
 function U(){return S.users.find(u=>u.id===S.activeUser)}
+function isSuri(){return S.activeUser==='suri'}
+function tc(){return isSuri()?'suri':'her'} // theme class
+function accentColor(){return isSuri()?'var(--accent)':'var(--pink)'}
 function tagCls(t){return({push:'tag-push',pull:'tag-pull',legs:'tag-legs',cardio:'tag-cardio',hotel:'tag-hotel',rest:'tag-rest'})[t]||'tag-rest'}
-function clone(o){return JSON.parse(JSON.stringify(o))}
 
-// ═══════════════ NAVIGATION ═══════════════
-function nav(screen, btn){
+// ═══════════════════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════════════════
+function nav(screen,btn){
   S.screen=screen;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s-'+screen).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  else{const b=document.querySelector(`[data-screen="${screen}"]`);if(b)b.classList.add('active');}
-  renderScreen(screen);
-  save();
+  (btn||document.querySelector(`[data-screen="${screen}"]`))?.classList.add('active');
+  renderScreen(screen);save();
 }
-
 function renderScreen(s){
   if(s==='home')renderHome();
   else if(s==='session')renderSession();
@@ -565,92 +560,101 @@ function renderScreen(s){
   else if(s==='records')renderRecords();
 }
 
-// ═══════════════ HOME ═══════════════
+// ═══════════════════════════════════════════════════════════
+// HOME
+// ═══════════════════════════════════════════════════════════
 function todayIdx(){const d=new Date().getDay();return d===0?6:d-1}
 function calcStreak(u){
-  if(!u.log||!u.log.length)return 0;
+  if(!u.log?.length)return 0;
   const sorted=[...u.log].sort((a,b)=>new Date(b.date)-new Date(a.date));
   let streak=0,check=new Date();check.setHours(0,0,0,0);
-  for(let i=0;i<sorted.length;i++){
-    const ld=new Date(sorted[i].date);ld.setHours(0,0,0,0);
-    const diff=Math.round((check-ld)/86400000);
-    if(diff<=1){streak++;check=ld;}else break;
+  for(const l of sorted){
+    const ld=new Date(l.date);ld.setHours(0,0,0,0);
+    if(Math.round((check-ld)/86400000)<=1){streak++;check=ld;}else break;
   }
   return streak;
 }
-function nextSessionKey(u){
-  const order=['pushA','pullA','cardio','legs','pushB','pullB'];
-  if(!u.lastSessionKey)return'pushA';
+function nextKey(u){
+  const sessions=u.sessions||[];
+  const order=sessions.filter(s=>s.key!=='rest'&&s.key!=='hotel').map(s=>s.key);
+  if(!u.lastSessionKey||!order.includes(u.lastSessionKey))return order[0]||'push';
+  const now=new Date(),ws=new Date(now);
+  ws.setDate(now.getDate()-(now.getDay()===0?6:now.getDay()-1));ws.setHours(0,0,0,0);
+  const doneKeys=new Set(u.log.filter(l=>new Date(l.date)>=ws).map(l=>l.sessionKey));
   const idx=order.indexOf(u.lastSessionKey);
-  if(idx===-1)return'pushA';
-  // find what hasn't been done this week
-  const now=new Date(),weekStart=new Date(now);
-  weekStart.setDate(now.getDate()-(now.getDay()===0?6:now.getDay()-1));weekStart.setHours(0,0,0,0);
-  const thisWeekTypes=new Set(u.log.filter(l=>new Date(l.date)>=weekStart).map(l=>l.sessionKey));
   for(let i=1;i<=order.length;i++){
-    const next=order[(idx+i)%order.length];
-    if(!thisWeekTypes.has(next))return next;
+    const nk=order[(idx+i)%order.length];
+    if(!doneKeys.has(nk))return nk;
   }
-  return order[(idx+1)%order.length];
+  return order[(order.indexOf(u.lastSessionKey)+1)%order.length];
 }
-function getSessionPlan(key){
-  const st=SESSION_TYPES.find(s=>s.key===key);
+function getSessionData(u,key){
+  const st=(u.sessions||[]).find(s=>s.key===key);
   if(!st)return null;
-  const u=U();
-  return{...st,exercises:u.plan[st.planKey][st.dayIdx].exercises};
+  const planKey=st.planKey||'home';
+  const dayExercises=u.plan[planKey]?.[st.dayIdx]?.exercises||[];
+  return{...st,exercises:dayExercises};
 }
 
 function renderHome(){
   const u=U();
   const streak=calcStreak(u);
-  const today=new Date();
   const di=todayIdx();
-  const nextKey=nextSessionKey(u);
-  const nextST=SESSION_TYPES.find(s=>s.key===nextKey);
-  const nextPlan=u.plan[nextST?.planKey||'home'][nextST?.dayIdx||0];
+  const nk=nextKey(u);
+  const nst=(u.sessions||[]).find(s=>s.key===nk);
+  const planKey=nst?.planKey||'home';
+  const nextDay=u.plan[planKey]?.[nst?.dayIdx||0];
+  const now=new Date();
+  const ws=new Date(now);ws.setDate(now.getDate()-(now.getDay()===0?6:now.getDay()-1));ws.setHours(0,0,0,0);
 
-  // week strip
-  const days=['M','T','W','T','F','S','S'];
-  const dayLabels=['Push A','Pull A','Cardio','Legs','Push B','Pull B','Rest'];
-  const weekStart=new Date(today);weekStart.setDate(today.getDate()-(today.getDay()===0?6:today.getDay()-1));weekStart.setHours(0,0,0,0);
-  const weekHtml=days.map((d,i)=>{
-    const dd=new Date(weekStart);dd.setDate(weekStart.getDate()+i);
+  const dayLabels=isSuri()?['PA','PuA','C','Lg','PB','PuB','R']:['Pu','CA','Lg','CB','Pu','CG','R'];
+  const weekHtml=['M','T','W','T','F','S','S'].map((d,i)=>{
+    const dd=new Date(ws);dd.setDate(ws.getDate()+i);
     const done=u.log.some(l=>{const ld=new Date(l.date);ld.setHours(0,0,0,0);return ld.getTime()===dd.getTime();});
     const isToday=i===di;
-    const planDay=u.plan.home[i];
+    const planDay=(u.plan[planKey]||[])[i];
     const isRest=planDay?.type==='rest';
-    return`<div class="wday ${isToday?'today':''} ${done?'done':''} ${isRest&&!done?'rest-day':''}">
+    return`<div class="wday ${isToday?`today ${tc()}`:''} ${done?'done':''} ${isRest&&!done?'rest-day':''}">
       <div class="wday-name">${d}</div>
-      <div class="wday-lbl">${dayLabels[i].split(' ').map(w=>w[0]).join('')}</div>
+      <div class="wday-lbl">${dayLabels[i]||'—'}</div>
       <div class="wday-dot">${done?'✓':''}</div>
     </div>`;
   }).join('');
 
   const total=u.log.length;
-  const weekSessions=u.log.filter(l=>new Date(l.date)>=weekStart).length;
-
-  // profile chips
-  const chips=S.users.map(usr=>`<button class="profile-chip ${usr.id===S.activeUser?'active':''}" onclick="switchUser('${usr.id}')">${usr.name}</button>`).join('');
-
+  const thisWeek=u.log.filter(l=>new Date(l.date)>=ws).length;
   const greet=()=>{const h=new Date().getHours();if(h<12)return'Good morning';if(h<17)return'Good afternoon';return'Good evening';};
+
+  const chips=S.users.map(usr=>{
+    const activeClass=usr.id===S.activeUser?`active-${usr.theme}`:'';
+    return`<button class="profile-chip ${activeClass}" onclick="switchUser('${usr.id}')">
+      <div class="avatar av-${usr.theme}">${usr.avatar}</div>${usr.name}
+    </button>`;
+  }).join('');
 
   document.getElementById('s-home').innerHTML=`
     <div style="height:16px"></div>
-    <div class="profile-row">${chips}<button class="add-partner-btn" onclick="openSheet('addUser')">+ Partner</button></div>
-    <div class="home-hero">
+    <div class="profile-row">${chips}</div>
+    <div class="home-hero ${tc()}">
       <div class="hero-greeting">${greet()}</div>
       <div class="hero-name">${u.name}</div>
       <div class="hero-streak">
-        <div class="streak-num">${streak}</div>
-        <div class="streak-label">${streak===1?'day streak':'day streak'} 🔥</div>
+        <div class="streak-num ${tc()}">${streak}</div>
+        <div>
+          <div class="streak-label">day streak 🔥</div>
+          <div style="font-size:11px;color:var(--t3);margin-top:2px">${streak===0?'Start today!':streak<7?'Building momentum':'On fire! 🔥'}</div>
+        </div>
       </div>
     </div>
     <div style="height:12px"></div>
     <div class="week-strip">${weekHtml}</div>
     <div class="stats-row">
-      <div class="stat-box"><div class="stat-num a">${weekSessions}</div><div class="stat-lbl">This week</div></div>
+      <div class="stat-box"><div class="stat-num ${tc()}">${thisWeek}</div><div class="stat-lbl">This week</div></div>
       <div class="stat-box"><div class="stat-num g">${total}</div><div class="stat-lbl">All time</div></div>
     </div>
+    ${u.log.length ? `<div style="padding:0 16px 4px;font-size:11px;color:var(--t3)">
+      Last session: <span style="color:var(--t2)">${new Date(u.log[u.log.length-1].date).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</span>
+    </div>` : ''}
     <div class="section-hdr">
       <div class="section-hdr-title">Next up</div>
       <button class="btn btn-ghost btn-sm" onclick="openSheet('pickSession')" style="font-size:12px">Pick different</button>
@@ -659,45 +663,53 @@ function renderHome(){
       <div class="nsc-header">
         <div>
           <div class="nsc-label">Suggested session</div>
-          <div class="nsc-title">${nextST?.label||'Push A'}</div>
+          <div class="nsc-title">${nst?.label||'Session'}</div>
         </div>
-        <span class="tag tag-${nextST?.type||'push'}">${nextST?.type||'push'}</span>
+        <span class="tag tag-${nst?.type||'push'}">${nst?.type||''}</span>
       </div>
       <div class="nsc-exercises">
-        ${(nextPlan?.exercises||[]).slice(0,4).map(e=>`
+        ${(nextDay?.exercises||[]).slice(0,4).map(e=>`
           <div class="nsc-ex">
             <div class="nsc-ex-name">${e.name}</div>
             <div class="nsc-ex-meta">${e.sets}×${e.reps}${e.weight?` · ${e.weight}${e.unit?` ${e.unit}`:''}`:''}</div>
           </div>`).join('')}
-        ${(nextPlan?.exercises||[]).length>4?`<div style="font-size:11px;color:var(--t3);padding:6px 0">+${(nextPlan?.exercises||[]).length-4} more</div>`:''}
+        ${(nextDay?.exercises||[]).length>4?`<div style="font-size:11px;color:var(--t3);padding:6px 0">+${(nextDay?.exercises||[]).length-4} more</div>`:''}
       </div>
     </div>
-    <button class="nsc-start-btn" onclick="startSession('${nextKey}')">START SESSION →</button>`;
+    <button class="nsc-start-btn ${tc()}" onclick="startSession('${nk}')">START SESSION →</button>`;
 }
 
-// ═══════════════ SESSION ═══════════════
+// ═══════════════════════════════════════════════════════════
+// SESSION
+// ═══════════════════════════════════════════════════════════
 function startSession(key){
   const u=U();
-  const st=SESSION_TYPES.find(s=>s.key===key);
-  const planDay=u.plan[st.planKey||'home'][st.dayIdx||0];
+  const st=(u.sessions||[]).find(s=>s.key===key);
+  if(!st)return;
+  const planKey=st.planKey||'home';
+  const planDay=u.plan[planKey]?.[st.dayIdx];
+  if(!planDay)return;
   u.activeSession={
     key,label:st.label,type:st.type,
     startTime:new Date().toISOString(),
     exercises:clone(planDay.exercises).map(e=>({...e,completedSets:0,actualWeight:e.weight})),
   };
-  save();
-  nav('session',document.querySelector('[data-screen="session"]'));
+  save();nav('session',document.querySelector('[data-screen="session"]'));
 }
 
 function renderSession(){
   const u=U();
   if(!u.activeSession){
+    const u2=U();
     document.getElementById('s-session').innerHTML=`
-      <div class="empty-state">
-        <span class="empty-icon">▶</span>
-        <div class="empty-text">No active session.<br>Pick a workout from Home.</div>
-        <div style="height:20px"></div>
-        <button class="btn btn-primary" style="width:auto;padding:14px 32px" onclick="openSheet('pickSession')">Pick session</button>
+      <div style="height:32px"></div>
+      <div style="text-align:center;padding:0 32px">
+        <div style="font-size:56px;margin-bottom:16px;opacity:.25">▶</div>
+        <div style="font-family:var(--fd);font-size:28px;font-weight:700;letter-spacing:.5px;margin-bottom:8px">No active session</div>
+        <div style="font-size:14px;color:var(--t3);line-height:1.7;margin-bottom:32px">Pick a workout below to begin.<br>Your progress saves automatically.</div>
+        <button class="btn btn-primary" style="background:${accentColor()};color:${isSuri()?'#000':'#fff'};font-size:18px;padding:16px 32px;width:auto;display:inline-flex" onclick="openSheet('pickSession')">Pick session →</button>
+        <div style="height:16px"></div>
+        <button class="btn btn-ghost" style="display:inline-flex;font-size:13px" onclick="nav('home',document.querySelector('[data-screen=home]'))">Back to home</button>
       </div>`;
     return;
   }
@@ -708,22 +720,18 @@ function renderSession(){
 
   const exHtml=sess.exercises.map((e,ei)=>{
     const allDone=e.completedSets>=e.sets;
-    const dots=Array.from({length:e.sets},(_,i)=>{
-      const cls=i<e.completedSets?'done':'';
-      return`<button class="set-btn ${cls}" onclick="toggleSet(${ei},${i})">
-        <span>${i+1}</span>
-      </button>`;
-    }).join('');
-    const wDisplay=e.weight>0?`${e.actualWeight||e.weight}`:'BW';
-    const wUnit=e.unit||'';
+    const dots=Array.from({length:e.sets},(_,i)=>
+      `<button class="set-btn ${i<e.completedSets?'done':''}" onclick="toggleSet(${ei},${i})">${i<e.completedSets?'✓':i+1}</button>`
+    ).join('');
+    const wDisp=e.weight>0?`${e.actualWeight??e.weight}`:'BW';
     return`<div class="ex-card ${allDone?'completed':''}" id="exc-${ei}">
       <div class="ex-card-top">
         <div class="ex-num">${ei+1}</div>
         <div class="ex-info">
           <div class="ex-name">${e.name}</div>
           <div class="ex-weight-row">
-            <div onclick="toggleWeightEditor(${ei})">
-              <div class="ex-weight-display">${wDisplay}<span class="ex-weight-unit"> ${wUnit}</span></div>
+            <div onclick="toggleWE(${ei})" style="cursor:pointer">
+              <div class="ex-weight-display ${tc()}">${wDisp}<span class="ex-weight-unit"> ${e.unit||''}</span></div>
             </div>
             <div class="ex-reps-info">× ${e.reps}</div>
           </div>
@@ -733,10 +741,10 @@ function renderSession(){
       </div>
       <div class="weight-editor" id="we-${ei}">
         <div class="we-row">
-          <button class="we-adj" onclick="adjWeight(${ei},-2.5)">−</button>
-          <input class="we-input" id="wei-${ei}" type="number" inputmode="decimal" value="${e.actualWeight||e.weight||0}" onchange="setWeight(${ei},this.value)" step="2.5">
-          <button class="we-adj" onclick="adjWeight(${ei},2.5)">+</button>
-          <button class="we-save" onclick="saveWeight(${ei})">Save</button>
+          <button class="we-adj" onclick="adjW(${ei},-2.5)">−</button>
+          <input class="we-input" id="wei-${ei}" type="number" inputmode="decimal" value="${e.actualWeight??e.weight??0}" step="2.5">
+          <button class="we-adj" onclick="adjW(${ei},2.5)">+</button>
+          <button class="we-save ${tc()}" onclick="saveW(${ei})">Save</button>
         </div>
       </div>
       <div class="ex-sets-row">${dots}</div>
@@ -750,40 +758,32 @@ function renderSession(){
         <span class="tag tag-${sess.type}">${sess.type}</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
-        <div class="prog-bar" style="flex:1"><div class="prog-fill" style="width:${pct}%"></div></div>
-        <div style="font-size:12px;color:var(--t3);font-family:var(--fd);font-weight:600">${pct}%</div>
+        <div class="prog-bar" style="flex:1"><div class="prog-fill ${tc()}" style="width:${pct}%"></div></div>
+        <div style="font-size:12px;color:var(--t3);font-family:var(--fd);font-weight:600" id="pct-label">${pct}%</div>
       </div>
     </div>
     ${exHtml}
     <button class="add-ex-btn" onclick="openSheet('addEx')">+ Add exercise</button>
     <div class="session-finish-wrap">
-      <button class="btn btn-primary" onclick="finishSession()">FINISH & LOG ✓</button>
+      <button class="btn btn-primary" style="background:${accentColor()};color:${isSuri()?'#000':'#fff'}" onclick="finishSession()">FINISH & LOG ✓</button>
       <div style="height:10px"></div>
       <button class="btn btn-secondary" onclick="cancelSession()">Discard session</button>
     </div>`;
 }
 
-function toggleWeightEditor(ei){
+function toggleWE(ei){
   const we=document.getElementById(`we-${ei}`);
   if(!we)return;
-  const isOpen=we.classList.contains('open');
+  const open=we.classList.contains('open');
   document.querySelectorAll('.weight-editor').forEach(w=>w.classList.remove('open'));
-  if(!isOpen){we.classList.add('open');document.getElementById(`wei-${ei}`)?.focus();}
+  if(!open){we.classList.add('open');document.getElementById(`wei-${ei}`)?.focus();}
 }
-
-function adjWeight(ei,delta){
+function adjW(ei,d){
   const inp=document.getElementById(`wei-${ei}`);
   if(!inp)return;
-  const cur=parseFloat(inp.value)||0;
-  inp.value=Math.max(0,(cur+delta)).toFixed(1).replace('.0','');
+  inp.value=Math.max(0,(parseFloat(inp.value)||0)+d).toFixed(1).replace(/\.0$/,'');
 }
-function setWeight(ei,val){
-  const u=U();
-  if(!u.activeSession)return;
-  u.activeSession.exercises[ei].actualWeight=parseFloat(val)||0;
-  save();
-}
-function saveWeight(ei){
+function saveW(ei){
   const inp=document.getElementById(`wei-${ei}`);
   if(!inp)return;
   const val=parseFloat(inp.value)||0;
@@ -791,91 +791,84 @@ function saveWeight(ei){
   if(!u.activeSession)return;
   const e=u.activeSession.exercises[ei];
   e.actualWeight=val;
-  // also save back to plan so it persists
-  const st=SESSION_TYPES.find(s=>s.key===u.activeSession.key);
+  // persist to plan
+  const st=(u.sessions||[]).find(s=>s.key===u.activeSession.key);
   if(st){
-    const planEx=u.plan[st.planKey][st.dayIdx].exercises.find(ex=>ex.id===e.id);
-    if(planEx){planEx.weight=val;planEx.actualWeight=val;}
+    const pk=st.planKey||'home';
+    const px=u.plan[pk]?.[st.dayIdx]?.exercises?.find(x=>x.id===e.id);
+    if(px){px.weight=val;}
   }
   save();
   document.getElementById(`we-${ei}`).classList.remove('open');
-  // update display
   const disp=document.querySelector(`#exc-${ei} .ex-weight-display`);
   if(disp)disp.innerHTML=`${val}<span class="ex-weight-unit"> ${e.unit||''}</span>`;
-  showToast(`Weight saved: ${val} ${e.unit||'lbs'}`,'t-good');
+  const oldW = e.actualWeight ?? e.weight ?? 0;
+  const msg = val > oldW && oldW > 0 ? `💪 PR weight! ${val} ${e.unit||'lbs'}` : `Saved: ${val} ${e.unit||'lbs'} ✓`;
+  showToast(msg, val > oldW && oldW > 0 ? 't-good' : 't-good');
 }
-
-function toggleSet(ei,setIdx){
-  const u=U();
-  if(!u.activeSession)return;
+function toggleSet(ei,si){
+  const u=U();if(!u.activeSession)return;
   const e=u.activeSession.exercises[ei];
-  e.completedSets=setIdx<e.completedSets?setIdx:setIdx+1;
+  e.completedSets=si<e.completedSets?si:si+1;
   save();
-  // update just that set button for snappy feel
   const card=document.getElementById(`exc-${ei}`);
   if(card){
     card.querySelectorAll('.set-btn').forEach((b,i)=>b.classList.toggle('done',i<e.completedSets));
     const allDone=e.completedSets>=e.sets;
     card.classList.toggle('completed',allDone);
-    card.querySelector('.ex-num').classList.toggle('completed',allDone);
   }
-  // update progress bar
   const sess=u.activeSession;
-  const totalSets=sess.exercises.reduce((a,ex)=>a+ex.sets,0);
-  const doneSets=sess.exercises.reduce((a,ex)=>a+Math.min(ex.completedSets,ex.sets),0);
-  const pct=totalSets?Math.round(doneSets/totalSets*100):0;
-  const fill=document.querySelector('.prog-fill');
-  if(fill)fill.style.width=pct+'%';
-  const pctLabel=document.querySelector('.session-header [style*="font-size:12px"]');
-  if(pctLabel)pctLabel.textContent=pct+'%';
+  const tot=sess.exercises.reduce((a,ex)=>a+ex.sets,0);
+  const done=sess.exercises.reduce((a,ex)=>a+Math.min(ex.completedSets,ex.sets),0);
+  const pct=tot?Math.round(done/tot*100):0;
+  const fill=document.querySelector('.prog-fill');if(fill)fill.style.width=pct+'%';
+  const lbl=document.getElementById('pct-label');if(lbl)lbl.textContent=pct+'%';
 }
-
 function finishSession(){
-  const u=U();
-  if(!u.activeSession)return;
+  const u=U();if(!u.activeSession)return;
   const sess=u.activeSession;
-  const doneSets=sess.exercises.reduce((a,e)=>a+Math.min(e.completedSets,e.sets),0);
-  u.log.push({
-    date:new Date().toISOString(),
-    sessionKey:sess.key,
-    label:sess.label,type:sess.type,
-    setsCompleted:doneSets,
-    exercisesCount:sess.exercises.length,
-    exercises:sess.exercises.map(e=>({name:e.name,sets:e.sets,reps:e.reps,weight:e.actualWeight||e.weight,unit:e.unit})),
-    duration:Math.round((Date.now()-new Date(sess.startTime))/60000),
-  });
-  u.lastSessionKey=sess.key;
-  u.activeSession=null;
-  save();
-  showToast('Session logged! 💪','t-good');
+  const done=sess.exercises.reduce((a,e)=>a+Math.min(e.completedSets,e.sets),0);
+  u.log.push({date:new Date().toISOString(),sessionKey:sess.key,label:sess.label,type:sess.type,
+    setsCompleted:done,exercisesCount:sess.exercises.length,
+    exercises:sess.exercises.map(e=>({name:e.name,sets:e.sets,reps:e.reps,weight:e.actualWeight??e.weight,unit:e.unit})),
+    duration:Math.round((Date.now()-new Date(sess.startTime))/60000)});
+  u.lastSessionKey=sess.key;u.activeSession=null;
+  save();showToast('Session logged! 💪','t-good');
   nav('log',document.querySelector('[data-screen="log"]'));
 }
-
 function cancelSession(){
   if(!confirm('Discard this session?'))return;
-  U().activeSession=null;
-  save();
-  nav('home',document.querySelector('[data-screen="home"]'));
+  U().activeSession=null;save();nav('home',document.querySelector('[data-screen="home"]'));
 }
 
-// ═══════════════ PLAN ═══════════════
+// ═══════════════════════════════════════════════════════════
+// PLAN
+// ═══════════════════════════════════════════════════════════
 let planMode='home',expandedDay=-1;
 function renderPlan(){
   const u=U();
-  const plan=u.plan[planMode];
+  const hasTravelPlan=u.id==='suri';
+  const plan=u.plan[planMode]||u.plan.home||[];
+
+  const toggleHtml=hasTravelPlan?`
+    <div class="plan-mode-toggle">
+      <button class="pmt-btn ${planMode==='home'?'active':''}" onclick="setPlanMode('home')">🏠 Home week</button>
+      <button class="pmt-btn ${planMode==='travel'?'active':''}" onclick="setPlanMode('travel')">✈️ Travel week</button>
+    </div>`:'<div style="height:12px"></div>';
+
   const dayHtml=plan.map((day,di)=>{
     const isOpen=expandedDay===di;
     const exHtml=day.exercises.map((e,ei)=>`
       <div class="pdb-ex-row">
-        <div style="flex:1">
+        <div class="pdb-ex-info">
           <div class="pdb-ex-name">${e.name}</div>
           <div class="pdb-ex-meta">${e.sets}×${e.reps}${e.note?` · ${e.note}`:''}</div>
         </div>
-        <div class="pdb-ex-weight" onclick="openSheet('editPlanEx',{planMode:'${planMode}',di:${di},ei:${ei}})">${e.weight>0?e.weight+' '+(e.unit||'lbs'):'BW'}</div>
-        <button class="btn btn-icon" style="width:32px;height:32px;font-size:13px" onclick="removePlanEx('${planMode}',${di},${ei})">×</button>
+        <div class="pdb-ex-weight ${tc()}" onclick="openSheet('editPlanEx',{pm:'${planMode}',di:${di},ei:${ei}})">${e.weight>0?e.weight+' '+(e.unit||'lbs'):'BW'}</div>
+        <button class="btn btn-icon" style="width:32px;height:32px;font-size:13px;margin-left:6px" onclick="removePlanEx('${planMode}',${di},${ei})">×</button>
       </div>`).join('');
     return`<div class="plan-day-block">
-      <div class="pdb-header ${isOpen?'':'collapsed'}" onclick="togglePlanDay(${di})">
+      <div class="pdb-header ${isOpen?'':'collapsed'}" onclick="toggleDay(${di})">
         <div>
           <div class="pdb-day">${day.day}</div>
           <div class="pdb-label">${day.label} <span class="tag tag-${day.type}" style="font-size:9px">${day.type}</span></div>
@@ -884,71 +877,61 @@ function renderPlan(){
       </div>
       ${isOpen?`<div class="pdb-exercises">
         ${exHtml}
-        <button class="pdb-add-btn" onclick="openSheet('addPlanEx',{planMode:'${planMode}',di:${di}})">+ Add exercise</button>
+        <button class="pdb-add-btn" onclick="openSheet('addPlanEx',{pm:'${planMode}',di:${di}})">+ Add exercise</button>
       </div>`:''}
     </div>`;
   }).join('');
 
   document.getElementById('s-plan').innerHTML=`
-    <div class="page-top">
-      <div class="page-title">MY PLAN</div>
-      <div class="page-sub">Tap weight to edit · long-press to remove</div>
+    <div class="page-top" style="display:flex;align-items:flex-start;justify-content:space-between">
+      <div><div class="page-title">${u.name}'s Plan</div><div class="page-sub">Tap weight to edit · × to remove</div></div>
+      <div class="avatar av-${u.theme}" style="margin-top:8px">${u.avatar}</div>
     </div>
-    <div class="plan-mode-toggle">
-      <button class="pmt-btn ${planMode==='home'?'active':''}" onclick="setPlanMode('home')">🏠 Home week</button>
-      <button class="pmt-btn ${planMode==='travel'?'active':''}" onclick="setPlanMode('travel')">✈️ Travel week</button>
-    </div>
-    ${dayHtml}
+    ${toggleHtml}${dayHtml}
     <div style="height:8px"></div>
     <div style="padding:0 12px">
-      <button class="btn btn-secondary" onclick="resetPlan()">↺ Reset to default plan</button>
+      <button class="btn btn-secondary" onclick="resetPlan()">↺ Reset to default</button>
     </div>`;
 }
-
-function togglePlanDay(di){expandedDay=expandedDay===di?-1:di;renderPlan();}
-function setPlanMode(mode){planMode=mode;expandedDay=-1;renderPlan();}
-
-function removePlanEx(mode,di,ei){
+function toggleDay(di){expandedDay=expandedDay===di?-1:di;renderPlan();}
+function setPlanMode(m){planMode=m;expandedDay=-1;renderPlan();}
+function removePlanEx(pm,di,ei){
   if(!confirm('Remove this exercise?'))return;
-  U().plan[mode][di].exercises.splice(ei,1);
-  save();renderPlan();
+  U().plan[pm][di].exercises.splice(ei,1);save();renderPlan();
 }
-
 function resetPlan(){
-  if(!confirm('Reset plan to defaults? Your weight edits will be lost.'))return;
+  if(!confirm('Reset to defaults? Weight edits will be lost.'))return;
   const u=U();
-  u.plan={home:clone(PLANS.home),travel:clone(PLANS.travel)};
+  if(u.id==='suri')u.plan={home:clone(SURI_HOME),travel:clone(SURI_TRAVEL)};
+  else u.plan={home:clone(HARSHITA_PLAN)};
   save();renderPlan();showToast('Plan reset','t-warn');
 }
 
-// ═══════════════ LOG ═══════════════
+// ═══════════════════════════════════════════════════════════
+// LOG
+// ═══════════════════════════════════════════════════════════
 function renderLog(){
   const u=U();
   const log=[...u.log].reverse();
   document.getElementById('s-log').innerHTML=`
     <div class="page-top" style="display:flex;align-items:flex-start;justify-content:space-between">
-      <div>
-        <div class="page-title">LOG</div>
-        <div class="page-sub">${log.length} sessions · ${u.name}</div>
-      </div>
+      <div><div class="page-title">LOG</div><div class="page-sub">${log.length} sessions · ${u.name}</div></div>
       ${log.length?`<button class="btn btn-ghost btn-sm" onclick="exportCSV()" style="margin-top:8px">↓ CSV</button>`:''}
     </div>
     <div style="height:12px"></div>
     ${!log.length?`<div class="empty-state"><span class="empty-icon">📋</span><div class="empty-text">No sessions yet.<br>Finish a workout to see it here.</div></div>`:''}
     ${log.map((l,i)=>{
       const d=new Date(l.date);
-      const dateStr=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
-      const timeStr=d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
       const logIdx=u.log.length-1-i;
-      return`<div class="log-entry" onclick="toggleLogDetail(${logIdx},this)">
+      return`<div class="log-entry" onclick="toggleLogEx(${logIdx},this)">
         <div class="le-top">
           <div>
-            <div class="le-date">${dateStr} · ${timeStr}${l.duration?` · ${l.duration}min`:''}</div>
+            <div class="le-date">${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})} · ${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}${l.duration?` · ${l.duration}min`:''}</div>
             <div class="le-title">${l.label}</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
             <span class="tag tag-${l.type}">${l.type}</span>
-            <button class="btn btn-icon" style="width:28px;height:28px;font-size:12px" onclick="event.stopPropagation();deleteLog(${logIdx})">×</button>
+            <button class="btn btn-icon" style="width:28px;height:28px;font-size:12px" onclick="event.stopPropagation();delLog(${logIdx})">×</button>
           </div>
         </div>
         <div class="le-stats">
@@ -964,18 +947,11 @@ function renderLog(){
       </div>`;
     }).join('')}`;
 }
-
-function toggleLogDetail(idx,row){
-  const el=document.getElementById(`ll-${idx}`);
-  if(el)el.classList.toggle('open');
+function toggleLogEx(idx){document.getElementById(`ll-${idx}`)?.classList.toggle('open');}
+function delLog(idx){
+  if(!confirm('Delete entry?'))return;
+  U().log.splice(idx,1);save();renderLog();showToast('Deleted','t-warn');
 }
-
-function deleteLog(idx){
-  if(!confirm('Delete this entry?'))return;
-  U().log.splice(idx,1);
-  save();renderLog();showToast('Deleted','t-warn');
-}
-
 function exportCSV(){
   const u=U();
   const rows=['Date,Workout,Type,Sets,Exercises,Duration'];
@@ -985,17 +961,17 @@ function exportCSV(){
   a.download=`forge_${u.name}.csv`;a.click();
 }
 
-// ═══════════════ RECORDS ═══════════════
+// ═══════════════════════════════════════════════════════════
+// RECORDS
+// ═══════════════════════════════════════════════════════════
 function renderRecords(){
   const u=U();
   const recs=u.records||{};
   const keys=Object.keys(recs);
-  const allEx=[...new Set(u.plan.home.flatMap(d=>d.exercises.map(e=>e.name)))];
-
   document.getElementById('s-records').innerHTML=`
     <div class="page-top">
       <div class="page-title">PR'S</div>
-      <div class="page-sub">Personal records · tap to see history</div>
+      <div class="page-sub">${u.name}'s personal records</div>
     </div>
     <div style="height:12px"></div>
     <button class="add-rec-btn" onclick="openSheet('addRecord')">+ Log personal record</button>
@@ -1007,7 +983,7 @@ function renderRecords(){
         const latest=entries[entries.length-1];
         return`<div class="rec-card" onclick="openSheet('viewRecord',{name:'${encodeURIComponent(name)}'})">
           <div class="rec-exercise">${name}</div>
-          <div class="rec-val">${best.weight}</div>
+          <div class="rec-val ${tc()}">${best.weight}</div>
           <div class="rec-unit">${best.unit||'lbs'}</div>
           <div class="rec-date">${new Date(latest.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}</div>
         </div>`;
@@ -1015,18 +991,13 @@ function renderRecords(){
     </div>`;
 }
 
-// ═══════════════ SHEETS ═══════════════
-function openSheet(type, ctx={}){
-  let html='';
-  if(type==='pickSession')html=sheetPickSession();
-  else if(type==='addUser')html=sheetAddUser();
-  else if(type==='addEx')html=sheetAddEx();
-  else if(type==='editEx')html=sheetEditEx(ctx);
-  else if(type==='addPlanEx')html=sheetAddPlanEx(ctx);
-  else if(type==='editPlanEx')html=sheetEditPlanEx(ctx);
-  else if(type==='addRecord')html=sheetAddRecord();
-  else if(type==='viewRecord')html=sheetViewRecord(ctx);
-  document.getElementById('sheet-inner').innerHTML=html;
+// ═══════════════════════════════════════════════════════════
+// SHEETS
+// ═══════════════════════════════════════════════════════════
+function openSheet(type,ctx={}){
+  const fns={pickSession:sheetPickSession,addUser:sheetAddUser,addEx:sheetAddEx,editEx:sheetEditEx,
+    addPlanEx:sheetAddPlanEx,editPlanEx:sheetEditPlanEx,addRecord:sheetAddRecord,viewRecord:sheetViewRecord};
+  document.getElementById('sheet-inner').innerHTML=(fns[type]||(() =>''))(ctx);
   document.getElementById('sheet-overlay').classList.add('open');
   document.getElementById('sheet').classList.add('open');
 }
@@ -1036,32 +1007,24 @@ function closeSheet(){
 }
 
 function sheetPickSession(){
-  const opts=SESSION_TYPES.filter(s=>s.key!=='rest').map(s=>`
-    <div class="sp-option" onclick="startSession('${s.key}');closeSheet()">
-      <div class="sp-dot" style="background:${({push:'var(--blue)',pull:'var(--green)',legs:'var(--orange)',cardio:'var(--accent)',hotel:'var(--red)'})[s.type]||'var(--t3)'}"></div>
-      <div class="sp-info">
-        <div class="sp-name">${s.label}</div>
-        <div class="sp-detail">${s.sub}</div>
-      </div>
+  const u=U();
+  const opts=(u.sessions||[]).filter(s=>s.key!=='rest').map(s=>{
+    const colors={push:'var(--blue)',pull:'var(--green)',legs:'var(--orange)',cardio:'var(--accent)',hotel:'var(--red)'};
+    return`<div class="sp-option" onclick="startSession('${s.key}');closeSheet()">
+      <div class="sp-dot" style="background:${colors[s.type]||'var(--t3)'}"></div>
+      <div class="sp-info"><div class="sp-name">${s.label}</div><div class="sp-detail">${s.sub}</div></div>
       <span class="sp-arrow">›</span>
-    </div>`).join('');
-  return`<div class="sheet-handle"></div>
-    <div class="sheet-title">Pick Session</div>
-    <div class="session-picker">${opts}</div>`;
+    </div>`;
+  }).join('');
+  return`<div class="sheet-handle"></div><div class="sheet-title">Pick Session</div><div>${opts}</div>`;
 }
 
 function sheetAddUser(){
   return`<div class="sheet-handle"></div>
-    <div class="sheet-title">Add Partner</div>
-    <div class="form-group"><label class="form-label">Name</label>
-      <input class="form-input" id="sh-name" placeholder="e.g. Alex" autofocus></div>
-    <div class="form-group"><label class="form-label">Starting plan</label>
-      <select class="form-input" id="sh-plan">
-        <option value="home">Home week</option>
-        <option value="travel">Travel week</option>
-      </select></div>
+    <div class="sheet-title">Add Profile</div>
+    <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="sh-name" placeholder="Name" autofocus></div>
     <div style="padding:0 20px">
-      <button class="btn btn-primary" onclick="doAddUser()">Add partner</button>
+      <button class="btn btn-primary" onclick="doAddUser()">Add profile</button>
       <div style="height:10px"></div>
       <button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
     </div>`;
@@ -1069,154 +1032,108 @@ function sheetAddUser(){
 function doAddUser(){
   const name=document.getElementById('sh-name').value.trim();
   if(!name){showToast('Enter a name','t-warn');return;}
-  const planType=document.getElementById('sh-plan').value;
-  const u={...freshUser(name,planType)};
-  S.users.push(u);S.activeUser=u.id;
-  save();closeSheet();renderHome();showToast(`${name} added! 👋`,'t-good');
+  const id='u'+Date.now();
+  S.users.push({id,name,avatar:name[0].toUpperCase(),theme:'suri',planType:'home',
+    plan:{home:clone(SURI_HOME),travel:clone(SURI_TRAVEL)},
+    sessions:clone(SURI_SESSIONS),log:[],records:{},activeSession:null,lastSessionKey:null,idCounter:600});
+  S.activeUser=id;save();closeSheet();renderHome();showToast(`${name} added!`,'t-good');
 }
 
-function sheetAddEx(){
-  return`<div class="sheet-handle"></div>
-    <div class="sheet-title">Add Exercise</div>
-    <div class="form-group"><label class="form-label">Exercise name</label>
-      <input class="form-input" id="sh-name" placeholder="e.g. Cable Fly" autofocus></div>
+function exFormHtml(e={}){
+  return`
+    <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="sh-name" value="${e.name||''}" placeholder="Exercise name" autofocus></div>
     <div class="form-row form-row-3">
-      <div class="form-group"><label class="form-label">Sets</label><input class="form-input" id="sh-sets" type="number" value="3" inputmode="numeric"></div>
-      <div class="form-group"><label class="form-label">Reps</label><input class="form-input" id="sh-reps" value="12" inputmode="text"></div>
-      <div class="form-group"><label class="form-label">Weight</label><input class="form-input" id="sh-weight" type="number" value="0" inputmode="decimal"></div>
+      <div class="form-group"><label class="form-label">Sets</label><input class="form-input" id="sh-sets" type="number" value="${e.sets||3}" inputmode="numeric"></div>
+      <div class="form-group"><label class="form-label">Reps</label><input class="form-input" id="sh-reps" value="${e.reps||'12'}"></div>
+      <div class="form-group"><label class="form-label">Weight</label><input class="form-input" id="sh-weight" type="number" value="${e.weight||0}" inputmode="decimal"></div>
     </div>
     <div class="form-row">
       <div class="form-group"><label class="form-label">Unit</label>
-        <select class="form-input" id="sh-unit"><option value="lbs">lbs</option><option value="kg">kg</option><option value="">bodyweight</option></select></div>
-      <div class="form-group"><label class="form-label">Note</label><input class="form-input" id="sh-note" placeholder="tip..."></div>
-    </div>
+        <select class="form-input" id="sh-unit">
+          <option value="lbs" ${e.unit==='lbs'||!e.unit?'selected':''}>lbs</option>
+          <option value="kg" ${e.unit==='kg'?'selected':''}>kg</option>
+          <option value="" ${e.unit===''?'selected':''}>bodyweight</option>
+        </select></div>
+      <div class="form-group"><label class="form-label">Note</label><input class="form-input" id="sh-note" value="${e.note||''}" placeholder="tip..."></div>
+    </div>`;
+}
+
+function sheetAddEx(){
+  return`<div class="sheet-handle"></div><div class="sheet-title">Add Exercise</div>${exFormHtml()}
     <div style="padding:0 20px">
-      <button class="btn btn-primary" onclick="doAddSessionEx()">Add to session</button>
-      <div style="height:10px"></div>
-      <button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
+      <button class="btn btn-primary" style="background:${accentColor()};color:${isSuri()?'#000':'#fff'}" onclick="doAddSessionEx()">Add to session</button>
+      <div style="height:10px"></div><button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
     </div>`;
 }
 function doAddSessionEx(){
   const name=document.getElementById('sh-name').value.trim();
   if(!name){showToast('Enter a name','t-warn');return;}
-  const u=U();
-  if(!u.activeSession)return;
-  u.activeSession.exercises.push({
-    id:++u.idCounter,name,
+  const u=U();if(!u.activeSession)return;
+  u.idCounter=(u.idCounter||500)+1;
+  u.activeSession.exercises.push({id:u.idCounter,name,
     sets:+document.getElementById('sh-sets').value||3,
     reps:document.getElementById('sh-reps').value||'12',
     weight:+document.getElementById('sh-weight').value||0,
     actualWeight:+document.getElementById('sh-weight').value||0,
     unit:document.getElementById('sh-unit').value,
-    note:document.getElementById('sh-note').value,
-    completedSets:0,
-  });
-  save();closeSheet();renderSession();showToast('Exercise added ✓','t-good');
+    note:document.getElementById('sh-note').value,completedSets:0});
+  save();closeSheet();renderSession();showToast('Added ✓','t-good');
 }
 
 function sheetEditEx({ei}){
-  const u=U();
-  const e=u.activeSession?.exercises[ei];
-  if(!e)return'';
-  return`<div class="sheet-handle"></div>
-    <div class="sheet-title">Edit Exercise</div>
-    <div class="form-group"><label class="form-label">Name</label>
-      <input class="form-input" id="sh-name" value="${e.name}"></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label class="form-label">Sets</label><input class="form-input" id="sh-sets" type="number" value="${e.sets}" inputmode="numeric"></div>
-      <div class="form-group"><label class="form-label">Reps</label><input class="form-input" id="sh-reps" value="${e.reps}"></div>
-      <div class="form-group"><label class="form-label">Weight</label><input class="form-input" id="sh-weight" type="number" value="${e.actualWeight||e.weight}" inputmode="decimal"></div>
-    </div>
-    <div class="form-group"><label class="form-label">Note</label><input class="form-input" id="sh-note" value="${e.note||''}"></div>
+  const e=U().activeSession?.exercises[ei];if(!e)return'';
+  return`<div class="sheet-handle"></div><div class="sheet-title">Edit Exercise</div>${exFormHtml({...e,weight:e.actualWeight??e.weight})}
     <div style="padding:0 20px">
-      <button class="btn btn-primary" onclick="doEditSessionEx(${ei})">Save changes</button>
+      <button class="btn btn-primary" style="background:${accentColor()};color:${isSuri()?'#000':'#fff'}" onclick="doEditSessionEx(${ei})">Save changes</button>
       <div style="height:10px"></div>
-      <button class="btn btn-danger" onclick="removeSessionEx(${ei})">Remove exercise</button>
-      <div style="height:10px"></div>
-      <button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
+      <button class="btn btn-danger-text" onclick="removeSessionEx(${ei})">Remove exercise</button>
+      <div style="height:10px"></div><button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
     </div>`;
 }
 function doEditSessionEx(ei){
-  const u=U();
-  const e=u.activeSession?.exercises[ei];
-  if(!e)return;
+  const u=U();const e=u.activeSession?.exercises[ei];if(!e)return;
   e.name=document.getElementById('sh-name').value.trim()||e.name;
   e.sets=+document.getElementById('sh-sets').value||e.sets;
   e.reps=document.getElementById('sh-reps').value||e.reps;
-  const w=+document.getElementById('sh-weight').value;
-  e.weight=w;e.actualWeight=w;
-  e.note=document.getElementById('sh-note').value;
+  const w=+document.getElementById('sh-weight').value;e.weight=w;e.actualWeight=w;
+  e.unit=document.getElementById('sh-unit').value;e.note=document.getElementById('sh-note').value;
   save();closeSheet();renderSession();showToast('Saved ✓','t-good');
 }
 function removeSessionEx(ei){
   if(!confirm('Remove?'))return;
-  U().activeSession?.exercises.splice(ei,1);
-  save();closeSheet();renderSession();
+  U().activeSession?.exercises.splice(ei,1);save();closeSheet();renderSession();
 }
 
-function sheetAddPlanEx({planMode,di}){
-  return`<div class="sheet-handle"></div>
-    <div class="sheet-title">Add Exercise</div>
-    <div class="form-group"><label class="form-label">Name</label>
-      <input class="form-input" id="sh-name" placeholder="Exercise name" autofocus></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label class="form-label">Sets</label><input class="form-input" id="sh-sets" type="number" value="3" inputmode="numeric"></div>
-      <div class="form-group"><label class="form-label">Reps</label><input class="form-input" id="sh-reps" value="12"></div>
-      <div class="form-group"><label class="form-label">Weight</label><input class="form-input" id="sh-weight" type="number" value="0" inputmode="decimal"></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Unit</label>
-        <select class="form-input" id="sh-unit"><option value="lbs">lbs</option><option value="kg">kg</option><option value="">bodyweight</option></select></div>
-      <div class="form-group"><label class="form-label">Note</label><input class="form-input" id="sh-note" placeholder="tip..."></div>
-    </div>
+function sheetAddPlanEx({pm,di}){
+  return`<div class="sheet-handle"></div><div class="sheet-title">Add Exercise</div>${exFormHtml()}
     <div style="padding:0 20px">
-      <button class="btn btn-primary" onclick="doAddPlanEx('${planMode}',${di})">Add exercise</button>
-      <div style="height:10px"></div>
-      <button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
+      <button class="btn btn-primary" style="background:${accentColor()};color:${isSuri()?'#000':'#fff'}" onclick="doAddPlanEx('${pm}',${di})">Add exercise</button>
+      <div style="height:10px"></div><button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
     </div>`;
 }
-function doAddPlanEx(mode,di){
+function doAddPlanEx(pm,di){
   const name=document.getElementById('sh-name').value.trim();
   if(!name){showToast('Enter a name','t-warn');return;}
-  const u=U();
-  u.idCounter=(u.idCounter||200)+1;
-  u.plan[mode][di].exercises.push({
-    id:u.idCounter,name,
+  const u=U();u.idCounter=(u.idCounter||500)+1;
+  u.plan[pm][di].exercises.push({id:u.idCounter,name,
     sets:+document.getElementById('sh-sets').value||3,
     reps:document.getElementById('sh-reps').value||'12',
     weight:+document.getElementById('sh-weight').value||0,
     unit:document.getElementById('sh-unit').value,
-    note:document.getElementById('sh-note').value,
-    completedSets:0,
-  });
-  save();closeSheet();renderPlan();showToast('Exercise added ✓','t-good');
+    note:document.getElementById('sh-note').value,completedSets:0});
+  save();closeSheet();renderPlan();showToast('Added ✓','t-good');
 }
 
-function sheetEditPlanEx({planMode,di,ei}){
-  const e=U().plan[planMode][di].exercises[ei];
-  if(!e)return'';
-  return`<div class="sheet-handle"></div>
-    <div class="sheet-title">Edit Exercise</div>
-    <div class="form-group"><label class="form-label">Name</label>
-      <input class="form-input" id="sh-name" value="${e.name}"></div>
-    <div class="form-row form-row-3">
-      <div class="form-group"><label class="form-label">Sets</label><input class="form-input" id="sh-sets" type="number" value="${e.sets}" inputmode="numeric"></div>
-      <div class="form-group"><label class="form-label">Reps</label><input class="form-input" id="sh-reps" value="${e.reps}"></div>
-      <div class="form-group"><label class="form-label">Weight</label><input class="form-input" id="sh-weight" type="number" value="${e.weight||0}" inputmode="decimal"></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Unit</label>
-        <select class="form-input" id="sh-unit"><option value="lbs" ${e.unit==='lbs'?'selected':''}>lbs</option><option value="kg" ${e.unit==='kg'?'selected':''}>kg</option><option value="" ${!e.unit?'selected':''}>bodyweight</option></select></div>
-      <div class="form-group"><label class="form-label">Note</label><input class="form-input" id="sh-note" value="${e.note||''}"></div>
-    </div>
+function sheetEditPlanEx({pm,di,ei}){
+  const e=U().plan[pm][di].exercises[ei];if(!e)return'';
+  return`<div class="sheet-handle"></div><div class="sheet-title">Edit Exercise</div>${exFormHtml(e)}
     <div style="padding:0 20px">
-      <button class="btn btn-primary" onclick="doEditPlanEx('${planMode}',${di},${ei})">Save changes</button>
-      <div style="height:10px"></div>
-      <button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
+      <button class="btn btn-primary" style="background:${accentColor()};color:${isSuri()?'#000':'#fff'}" onclick="doEditPlanEx('${pm}',${di},${ei})">Save changes</button>
+      <div style="height:10px"></div><button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
     </div>`;
 }
-function doEditPlanEx(mode,di,ei){
-  const u=U();const e=u.plan[mode][di].exercises[ei];
+function doEditPlanEx(pm,di,ei){
+  const u=U();const e=u.plan[pm][di].exercises[ei];
   e.name=document.getElementById('sh-name').value.trim()||e.name;
   e.sets=+document.getElementById('sh-sets').value||e.sets;
   e.reps=document.getElementById('sh-reps').value||e.reps;
@@ -1228,34 +1145,27 @@ function doEditPlanEx(mode,di,ei){
 
 function sheetAddRecord(){
   const u=U();
-  const allEx=[...new Set(u.plan.home.flatMap(d=>d.exercises.map(e=>e.name)))];
-  return`<div class="sheet-handle"></div>
-    <div class="sheet-title">Log PR</div>
+  const allEx=[...new Set((u.plan.home||[]).flatMap(d=>d.exercises.map(e=>e.name)))];
+  return`<div class="sheet-handle"></div><div class="sheet-title">Log PR</div>
     <div class="form-group"><label class="form-label">Exercise</label>
       <input class="form-input" id="sh-name" list="pr-list" placeholder="e.g. Incline DB Press" autofocus>
-      <datalist id="pr-list">${allEx.map(n=>`<option value="${n}">`).join('')}</datalist>
-    </div>
+      <datalist id="pr-list">${allEx.map(n=>`<option value="${n}">`).join('')}</datalist></div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">Weight</label>
-        <input class="form-input" id="sh-weight" type="number" placeholder="0" inputmode="decimal"></div>
+      <div class="form-group"><label class="form-label">Weight</label><input class="form-input" id="sh-weight" type="number" placeholder="0" inputmode="decimal"></div>
       <div class="form-group"><label class="form-label">Unit</label>
         <select class="form-input" id="sh-unit"><option value="lbs">lbs</option><option value="kg">kg</option></select></div>
     </div>
-    <div class="form-group"><label class="form-label">Reps at this weight</label>
-      <input class="form-input" id="sh-reps" placeholder="e.g. 8" inputmode="numeric"></div>
+    <div class="form-group"><label class="form-label">Reps at this weight</label><input class="form-input" id="sh-reps" placeholder="e.g. 8" inputmode="numeric"></div>
     <div style="padding:0 20px">
-      <button class="btn btn-primary" onclick="doAddRecord()">Save record</button>
-      <div style="height:10px"></div>
-      <button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
+      <button class="btn btn-primary" style="background:${accentColor()};color:${isSuri()?'#000':'#fff'}" onclick="doAddRecord()">Save PR</button>
+      <div style="height:10px"></div><button class="btn btn-secondary" onclick="closeSheet()">Cancel</button>
     </div>`;
 }
 function doAddRecord(){
   const name=document.getElementById('sh-name').value.trim();
   const weight=+document.getElementById('sh-weight').value;
   if(!name||!weight){showToast('Fill in exercise and weight','t-warn');return;}
-  const u=U();
-  if(!u.records)u.records={};
-  if(!u.records[name])u.records[name]=[];
+  const u=U();if(!u.records)u.records={};if(!u.records[name])u.records[name]=[];
   u.records[name].push({date:new Date().toISOString(),weight,unit:document.getElementById('sh-unit').value,reps:document.getElementById('sh-reps').value||'?'});
   save();closeSheet();renderRecords();showToast('PR saved ★','t-good');
 }
@@ -1263,44 +1173,48 @@ function doAddRecord(){
 function sheetViewRecord({name}){
   const n=decodeURIComponent(name);
   const u=U();
-  const entries=(u.records&&u.records[n])||[];
+  const entries=(u.records?.[n])||[];
   const best=entries.reduce((a,e)=>e.weight>a.weight?e:a,entries[0]);
-  const histHtml=entries.slice().reverse().map(e=>`
-    <div class="wh-entry">
-      <div class="wh-date">${new Date(e.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'})} · ${e.reps} reps</div>
-      <div class="wh-val">${e.weight} <span style="font-size:12px;color:var(--t3)">${e.unit}</span></div>
-    </div>`).join('');
   return`<div class="sheet-handle"></div>
     <div class="sheet-title">${n}</div>
     <div style="padding:0 20px 16px">
-      <div style="background:var(--a-dim);border:1px solid rgba(200,255,0,.2);border-radius:14px;padding:16px">
+      <div style="background:${isSuri()?'var(--a-dim)':'var(--pd)'};border:1px solid ${isSuri()?'rgba(200,255,0,.2)':'rgba(255,110,180,.2)'};border-radius:14px;padding:16px">
         <div style="font-size:10px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Personal best</div>
-        <div style="font-family:var(--fd);font-size:52px;font-weight:700;color:var(--accent);line-height:1">${best.weight} <span style="font-size:18px;color:var(--t3)">${best.unit}</span></div>
+        <div style="font-family:var(--fd);font-size:52px;font-weight:700;color:${accentColor()};line-height:1">${best.weight} <span style="font-size:18px;color:var(--t3)">${best.unit}</span></div>
       </div>
     </div>
-    ${histHtml}
+    ${[...entries].reverse().map(e=>`
+      <div class="wh-entry">
+        <div class="wh-date">${new Date(e.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'})} · ${e.reps} reps</div>
+        <div class="wh-val" style="color:${accentColor()}">${e.weight} <span style="font-size:12px;color:var(--t3)">${e.unit}</span></div>
+      </div>`).join('')}
     <div style="padding:16px 20px;display:flex;flex-direction:column;gap:10px">
-      <button class="btn btn-primary" onclick="closeSheet();openSheet('addRecord')">+ Add new entry</button>
-      <button class="btn btn-secondary" style="color:var(--red);border-color:rgba(255,71,87,.3)" onclick="deleteRecord('${name}')">Delete all records</button>
+      <button class="btn btn-primary" style="background:${accentColor()};color:${isSuri()?'#000':'#fff'}" onclick="closeSheet();openSheet('addRecord')">+ Add entry</button>
+      <button class="btn btn-danger-text" onclick="deleteRecord('${name}')">Delete all records</button>
     </div>`;
 }
 function deleteRecord(name){
   const n=decodeURIComponent(name);
   if(!confirm(`Delete all records for "${n}"?`))return;
-  delete U().records[n];
-  save();closeSheet();renderRecords();showToast('Deleted','t-warn');
+  delete U().records[n];save();closeSheet();renderRecords();showToast('Deleted','t-warn');
 }
 
-// ═══════════════ UTILS ═══════════════
-function switchUser(id){S.activeUser=id;save();nav('home',document.querySelector('[data-screen="home"]'));}
-
+// ═══════════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════════
+function switchUser(id){
+  S.activeUser=id;planMode='home';expandedDay=-1;
+  save();nav(S.screen||'home',document.querySelector(`[data-screen="${S.screen||'home'}"]`));
+}
 function showToast(msg,cls=''){
   const t=document.getElementById('toast');
   t.textContent=msg;t.className=cls+' show';
   clearTimeout(t._t);t._t=setTimeout(()=>t.className='',2400);
 }
 
-// ═══════════════ INIT ═══════════════
+// ═══════════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════════
 nav(S.screen||'home',document.querySelector(`[data-screen="${S.screen||'home'}"]`));
 </script>
 </body>
